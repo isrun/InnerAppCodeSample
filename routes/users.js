@@ -6,7 +6,7 @@ const axios = require('axios');
 const parser = require('url-parse');
 const getToken = async () => {
 
-    return 'OLC7ZVv5YxwClurcHRsFna-8_QjAoom0Syldmnv8xwsXziUVdq9Lg5XSSA0a1YSk1e6-J8GXtqveO_m5abKqgglLLv6nqtLPYnZfLhOAEgRWBEzFnfgcbeA9UMbHtmE-LP8enM6QovTi0RAII3PYUwtqc1ZwZFMWm46M_WQOv5TpCjRNjtMSZObHyGdzrAIy98WnVm3G0QhZvvIYJaOCLg';
+    return 'rHPM9RmmL1Rj8bT4LAAzbpZp0ivJr16klksNlSoUNRykEmC8s8IIq_5wmAb3A4zoO7ESHv-BEXMBY-Zk7wxDCCG6rSWH0ixKzxt7hERooIAwmieKUk_iV3Tq5gR9KsgILOQ5OQgLyeaBJZKL8iWWMDE35KTnqpo26Ebj05VKszf_fMYZY2LNxdbSUFaFhVfTu5hwBIljaMVS7qiqQaAkVA';
 
     let corpid = 'ww827c549fa062654e';
     let corpsecret = '***REMOVED***';
@@ -17,9 +17,10 @@ const getToken = async () => {
             corpsecret
         }
     });
-
+    console.log('-----------------------');
     console.log('Access Token OK!');
     console.log(access_token);
+    console.log('-----------------------');
     return access_token;
 };
 
@@ -55,52 +56,60 @@ router.get('/department/list', async function (req, res, next) {
     }
     const access_token = await getToken();
     console.log(query);
-    const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/department/list', {
+
+
+    let filter_departments = []
+    const { data:{department:departmentlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/department/list', {
         params: {
             access_token,
             id: query.id || ''
         }
     });
 
-    console.log(data);
-
-
-    let dep = [];
-    let department = data.department || [];
-
-    department.forEach(item => {
+    departmentlist.forEach(item => {
         if (item.parentid == query.id) {
-            dep.push({
+            filter_departments.push({
                 id: item.id,
-                name: item.name || '',                
+                name: item.name || '',
+                type: 'department'
             })
         }
     });
+    // if (filter_departments.length > 0) {
+    //     for (let index = 0; index < filter_departments.length; index++) {
+    //         let element = filter_departments[index];
+    //         if (departmentlist.some(item => {
+    //             return item.parentid == element.id
+    //         })) {
+    //             // element.leaf = false;
+
+    //         } else {
+    //             // element.leaf = true;
+    //         }
+    //     }
+    // }
 
 
-    if (dep.length > 0) {
-        for (let index = 0; index < dep.length; index++) {
-            let element = dep[index];
-            if (department.some(item => {
-                return item.parentid == element.id
-            })) {
-                element.children = [{
-                    label: '0',
-                }];
-
-                element.leaf = false;
-
-            } else {
-
-                element.leaf = true;
-            }
+    const { data:{userlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/simplelist', {
+        params: {
+            access_token,
+            department_id: query.id || '',
+            fetch_child: 0
         }
-    }
+    });
 
+    let filter_users = userlist.map(user => {
+        return {
+            id:user.userid || '',
+            name : user.name || '',
+            leaf : true,
+            type : 'user'
+        }
+    });
 
-
-    console.log(dep);
-    res.send(dep);
+    console.log(filter_departments);
+    console.log(filter_users);
+    res.send([].concat(filter_users,filter_departments));
 
 
 });
