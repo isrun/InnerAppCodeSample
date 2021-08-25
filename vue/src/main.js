@@ -5,6 +5,7 @@ import App from './App.vue'
 
 
 import Contacts from './page/contacts/main.vue';
+import Message from './page/message/message.vue';
 import Intro from './page/intro/intro.vue';
 
 import vueRouter from 'vue-router';
@@ -24,6 +25,10 @@ new Vue({
     {
       path: '/intro',
       component: Intro,
+    },
+    {
+      path: '/message',
+      component: Message,
     }
   ]
   }),

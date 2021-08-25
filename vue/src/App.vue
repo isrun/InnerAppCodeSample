@@ -74,7 +74,8 @@
         <el-main style="padding:0;">
           <div class="content-header">
             <h1 class="content-header-title">组织架构树</h1>
-            <div class="content-header-intro">分割线是一个呈线状的轻量化组件，起到分割、组织、细化的作用，用于有逻辑的组织元素内容和页面结构。</div>
+            <div class="content-header-intro">拉取企业通讯录的组织架构数，可以预览部门和成员的详情，对成员信息进行编辑，对部门进行成员的添加、删除、移动等操作</div>
+            <!-- 通用应用向成员、部门、标签推送多种类型的消息，包括文本、图片、图文、语音视频等等 -->
           </div>
           <div class="content-body">
             <router-view ></router-view>
@@ -143,43 +144,9 @@ html,body{
     letter-spacing: -0.5px;
     padding-left: 5px;
 }
+
 .left-menu{
   min-height: 100%;
-  
-}
-
-.left-menu .el-menu-item{
-  margin:5px;
-  height:40px;
-  line-height: 40px;
-  padding-left:10px!important;
-  border-radius: 3px;
-  color: #333;
-}
-/* .left-menu .el-menu-item:hover{
-  background: #f3f3f3;
-  color:#333;
-} */
-
-.left-menu .el-submenu .el-menu-item{
-  min-width: 0!important;
-}
-.left-menu .el-submenu__title{
-  margin:5px;
-  height:40px;
-  line-height: 40px;
-  padding-left:10px!important;
-  border-radius: 3px;
-}
-.left-menu .el-menu-item-group{
-  margin:5px;
-  min-width: none;  
-}
-.left-menu .el-menu-item-group .el-menu-item{
-  padding-left: 33px!important;
-}
-.left-menu .el-menu-item-group__title:empty{
-  display: none;
 }
 .content-header{
   padding: 80px 24px 48px 60px;
@@ -209,11 +176,6 @@ html,body{
     background:#fff;
     min-height: 680px;
     overflow: auto;
-}
-
-.el-menu-item.is-active {
-  background:rgb(0, 82, 217);
-  color:#fff;
 }
 .el-tree-node{
   margin:3px 0;
