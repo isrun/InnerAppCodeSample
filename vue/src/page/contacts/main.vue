@@ -11,7 +11,9 @@
             v-if="userid"
             :userid="userid">
             </Userprofile>
-            <Partyinfo v-else-if="partyid" :partyid="partyid">{{partyName}}</Partyinfo>
+            <Partyinfo v-else-if="partyid" :partyid="partyid">
+                <div class="content_desc">{{partyName}}</div>
+            </Partyinfo>
             <div v-else class="content_desc">组织架构树</div>
          </div>
     </div>
@@ -88,7 +90,7 @@ export default {
     width: 100%;
     font-size: 48px;
     text-align: center;
-    line-height: 680px;
+    line-height: 623px;
     color: #333;
 }
 

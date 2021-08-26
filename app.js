@@ -25,7 +25,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(function(req, res, next) {
+  const send = res.send;
+  console.log(`\ncurrent request CGI is: ${req.url}`);
+  console.log(`query: ${JSON.stringify(req.query)}`);
+  console.log(`params: ${JSON.stringify(req.params)}`);
+  res.send = function(data) {
+    console.log(JSON.stringify(data));
+    send.call(this, data);
+  }
+  next();
+})
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
 
