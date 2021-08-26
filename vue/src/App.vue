@@ -72,9 +72,7 @@
             </el-menu>
         </el-aside>
         <el-main style="padding:0;">
-          <div class="content-header">
-            <router-view name="title"></router-view>
-          </div>
+          <keep-alive><router-view name="title"></router-view></keep-alive>
           <div class="content-body">
             <router-view ></router-view>
           </div>
@@ -145,11 +143,6 @@ html,body{
 
 .left-menu{
   min-height: 100%;
-}
-.content-header{
-  padding: 80px 24px 48px 60px;
-  border-bottom: 1px solid #e7e7e7;
-  background: #fff;
 }
 .content-body{
   padding:60px;
