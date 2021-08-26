@@ -7,6 +7,7 @@ import App from './App.vue'
 import Contacts from './page/contacts/main.vue';
 import Message from './page/message/message.vue';
 import Intro from './page/intro/intro.vue';
+import Media from './page/media/media.vue';
 import Title from './components/title.vue';
 import vueRouter from 'vue-router';
 
@@ -51,6 +52,18 @@ new Vue({
       },
       content: {
         title: '消息推送',
+        desc: '企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。'
+      }
+    },
+    {
+      name: 'media',
+      path: '/media',
+      components: {
+        default: Media,
+        title: Title
+      },
+      content: {
+        title: '素材管理',
         desc: '企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。'
       }
     }

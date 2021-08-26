@@ -23,18 +23,10 @@
                 <i class="el-icon-monitor"></i>
                 <span slot="title">概览</span>
               </el-menu-item>
-              <el-submenu index="1">
-                <template slot="title">
-                  <i class="el-icon-user"></i>
-                  <span>通讯录管理</span>
-                </template>
-                <el-menu-item-group>                  
-                  <el-menu-item index="contacts">组织架构树</el-menu-item>
-                  <el-menu-item index="tags">标签管理</el-menu-item>
-                </el-menu-item-group>
-                           
-              </el-submenu>
-              
+              <el-menu-item index="contacts">
+                <i class="el-icon-user"></i>
+                <span slot="title">通讯录管理</span>
+              </el-menu-item>
               <el-menu-item index="message">
                 <i class="el-icon-message"></i>
                 <span slot="title">消息推送</span>
@@ -52,7 +44,7 @@
                 <i class="el-icon-mobile"></i>
                 <span slot="title">扫码登录</span>
               </el-menu-item>              
-              <el-menu-item index="scanqr">
+              <el-menu-item index="media">
                 <i class="el-icon-picture-outline"></i>
                 <span slot="title">素材管理</span>
               </el-menu-item>
@@ -143,6 +135,12 @@ html,body{
     min-height: 680px;
     overflow: auto;
 }
+.block-header{
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 20px;
+}
+
 .el-tree-node{
   margin:3px 0;
 }

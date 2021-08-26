@@ -24,18 +24,18 @@ export default {
 </script>
 <style lang="css" scoped>
 .content-header {
-  padding: 80px 24px 48px 60px;
+  padding: 40px 24px 40px 60px;
   border-bottom: 1px solid #e7e7e7;
   background: #fff;
 }
 .content-header-title{
-  font-size: 48px;
+  font-size: 38px;
   text-align: left;
-  line-height: 56px;
+  
   color:#333;
 }
 .content-header-intro{
-  margin-top: 16px;
+  margin-top: 5px;
     font-size: 14px;
     color: rgba(0,0,0,0.6);
     line-height: 22px;

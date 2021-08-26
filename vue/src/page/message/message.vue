@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="block">
+    <div class="block" style="padding:60px;">
         <el-form ref="form" :model="form" label-width="80px" style="width:450px;">
             <el-form-item label="消息类型">
                 <el-select v-model="form.msgtype" placeholder="请选择消息类型">
@@ -10,7 +10,6 @@
                 <el-option label="视频消息" value="video"></el-option>
                 <el-option label="文件消息" value="file"></el-option>
                 <el-option label="文本卡片消息" value="textcard"></el-option>
-                <!-- <el-option label="图文消息" value="news"></el-option> -->
                 <el-option label="Markdown 消息" value="markdown"></el-option>
                 </el-select>
             </el-form-item>

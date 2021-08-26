@@ -24,7 +24,7 @@
             <div class="profile-detail">
                     <div class="profile-item">
                         <div class="profile-label">职务：</div>
-                        <div class="profile-option">{{user.position}}</div>
+                        <div class="profile-option">{{user.position || '未设置'}}</div>
                     </div>
                     <div class="profile-item">
                         <div class="profile-label">手机：</div>
