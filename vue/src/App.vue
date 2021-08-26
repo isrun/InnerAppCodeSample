@@ -8,12 +8,7 @@
           mode="horizontal" 
           >
             <el-menu-item index="1">开发者中心</el-menu-item>
-            <el-submenu index="2">
-              <template slot="title">开发文档</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
-              <el-menu-item index="2-3">选项3</el-menu-item>              
-            </el-submenu>
+            <el-menu-item index="2">开发文档</el-menu-item>
             <el-menu-item index="3">开发者工具</el-menu-item>
             <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">Github</a></el-menu-item>
           </el-menu>
@@ -56,19 +51,12 @@
               <el-menu-item index="scanqr">
                 <i class="el-icon-mobile"></i>
                 <span slot="title">扫码登录</span>
-              </el-menu-item>
-              <el-menu-item index="scanqr">
-                <i class="el-icon-box"></i>
-                <span slot="title">应用管理</span>
-              </el-menu-item>
+              </el-menu-item>              
               <el-menu-item index="scanqr">
                 <i class="el-icon-picture-outline"></i>
                 <span slot="title">素材管理</span>
               </el-menu-item>
-              <el-menu-item index="OA">
-                <i class="el-icon-folder-opened"></i>
-                <span slot="title">OA 应用</span>
-              </el-menu-item>
+              
             </el-menu>
         </el-aside>
         <el-main style="padding:0;">

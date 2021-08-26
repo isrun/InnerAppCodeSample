@@ -10,7 +10,7 @@
                 <el-option label="视频消息" value="video"></el-option>
                 <el-option label="文件消息" value="file"></el-option>
                 <el-option label="文本卡片消息" value="textcard"></el-option>
-                <el-option label="图文消息" value="news"></el-option>
+                <!-- <el-option label="图文消息" value="news"></el-option> -->
                 <el-option label="Markdown 消息" value="markdown"></el-option>
                 </el-select>
             </el-form-item>
@@ -36,7 +36,9 @@
             </el-form-item>
             
             <el-form-item v-if="form.msgtype ==='text'" label="文本内容">
-                <el-input type="textarea" v-model="form.text.content"></el-input>
+                <el-input type="textarea" 
+                    :autosize="{ minRows: 5, maxRows: 10}"
+                v-model="form.text.content"></el-input>
             </el-form-item>
             <el-form-item v-if="form.msgtype ==='image'" label="上传图片">
                 <el-upload
@@ -86,9 +88,30 @@
                     <div class="el-upload__tip" slot="tip">单个文件不超过 20MB</div>
                 </el-upload>
             </el-form-item>
+
+            <el-form-item v-if="form.msgtype=='textcard'" label="卡片标题">
+                <el-input v-model="form.textcard.title"></el-input>
+            </el-form-item>
+
+            <el-form-item v-if="form.msgtype=='textcard'" label="卡片描述">
+                <el-input v-model="form.textcard.description"></el-input>
+            </el-form-item>
+
+            <el-form-item v-if="form.msgtype=='textcard'" label="跳转链接">
+                <el-input v-model="form.textcard.url"></el-input>
+            </el-form-item>
+
+
+            <el-form-item v-if="form.msgtype ==='markdown'" label="MarkDown">
+                <el-input type="textarea"
+                     :autosize="{ minRows: 5, maxRows: 15}"
+                 v-model="form.markdown.content"></el-input>
+            </el-form-item>
+
+
             <el-form-item>
-                <el-button type="primary" @click="onSubmit">发送</el-button>
-                <el-button>取消</el-button>
+                <el-button type="primary" size="small"                 
+                @click="onSubmit">发送</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -107,6 +130,8 @@ export default {
         ContactsPicker
     },
     data(){
+
+        let md = '您的会议室已经预定，稍后会同步到`邮箱` \n >**事项详情** \n>事　项：<font color="info">开会</font> \n>组织者：@miglioguan \n>参与者：@miglioguan、@kunliu、@jamdeezhou、@kanexiong、@kisonwang \n> \n>会议室：<font color="info">广州TIT 1楼 301</font> \n>日　期：<font color="warning">2018年5月18日</font> \n>时　间：<font color="comment">上午9:00-11:00</font> \n> \n>请准时参加会议。 \n> \n>如需修改会议信息，请点击：[修改会议信息](https://work.weixin.qq.com)';
        return {
         form: {
           msgtype: 'text',
@@ -115,7 +140,7 @@ export default {
           totag: '',
           safe: false,          
           text: {
-              content:''
+              content:'Hello！欢迎使用企业微信开发者 CodeSamples'
           },
           image:{
               media_id:''
@@ -130,11 +155,31 @@ export default {
           },
           file:{
               media_id:''
-          }
+          },
+          textcard:{
+              title:'Hello',
+              description:'欢迎使用企业微信开发者 CodeSamples',
+              url:'http://work.weixin.qq.com',
+              btntxt:''
+          },
+            news : {
+                articles : [
+                    {
+                        title : "中秋节礼品领取",
+                        description : "今年中秋节公司有豪礼相送",
+                        url : "URL",
+                        picurl : "http://res.mail.qq.com/node/ww/wwopenmng/images/independent/doc/test_pic_msg1.png", 
+                        
+                    }
+                ]
+           },
+           markdown:{
+               content:md
+           }
         },
         media_id:'',
-        user_list:[]
-        }
+        
+       }
         
     },
     
