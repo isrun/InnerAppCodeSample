@@ -6,7 +6,7 @@
             :key="item.id" 
             class="tag" 
             type ='' 
-            size ='small'><i class="tag-icon el-icon-user"></i><span class="tag-name">{{item.name}}</span></span>
+            size ='small'><i class="tag-icon" :class="item.type =='user' ? 'el-icon-user' : 'el-icon-folder'"></i><span class="tag-name">{{item.name}}</span></span>
         </div>
         
     </div>

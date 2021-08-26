@@ -22,7 +22,10 @@
             </el-form-item>
 
             <el-form-item label="接收部门">
-                <el-input v-model="form.toparty"></el-input>
+                <ContactsPicker
+                    mode="department"
+                    @onContactsChanged='eventDepartmentsChanged'
+                ></ContactsPicker>
             </el-form-item>
 
             <el-form-item label="接收标签">
@@ -178,6 +181,9 @@ export default {
         },
         eventUsersChanged(items){            
             this.form.touser = items.map( item => {return item.id}).join('|');
+        },
+        eventDepartmentsChanged(items){            
+            this.form.toparty = items.map( item => {return item.id}).join('|');
         }
     }
     
