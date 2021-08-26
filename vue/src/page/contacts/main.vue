@@ -8,13 +8,13 @@
          </div>
          <div class="content">
             <Userprofile 
-            v-if="userid"
+            v-show="userid"
             :userid="userid">
             </Userprofile>
-            <Partyinfo v-else-if="partyid" :partyid="partyid">
+            <Partyinfo v-if="partyid" :partyid="partyid">
                 <div class="content_desc">{{partyName}}</div>
             </Partyinfo>
-            <div v-else class="content_desc">组织架构树</div>
+            <div v-if="!(userid||partyid)" class="content_desc">组织架构树</div>
          </div>
     </div>
 </template>

@@ -10,10 +10,29 @@
         <div class="partyinfo-content">
             <slot></slot>
         </div>
-        <el-dialog title="新增部门名" :visible="isCreate">
-            <el-input v-model="partyname" placeholder="请输入新部门名"></el-input>
+        <el-dialog title="创建" :visible="isCreate">
+            <el-select v-model="currentType" placeholder="请选择新建类型">
+            <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+            </el-select>
+            <div class="dialog-body">
+                <ContactsPicker
+                v-if="currentType === 'user'"
+                mode="user"
+                @onContactsChanged='eventUsersChanged'
+                ></ContactsPicker>
+                <el-input 
+                    v-if="currentType === 'department'" 
+                    v-model="partyname" 
+                    placeholder="请输入新部门名">
+                </el-input>
+            </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="isCreate = false">取 消</el-button>
+                <el-button @click="onCancel">取 消</el-button>
                 <el-button type="primary" @click="onConfirm">确 定</el-button>
             </span>
         </el-dialog>
@@ -21,38 +40,56 @@
 </template>
 <script>
 import { post, get } from 'axios';
+import ContactsPicker from '../../components/contactsPicker.vue';
 export default {
+    components: {
+        ContactsPicker
+    },
     props: {
         partyid: Number
     },
     data() {
         return {
             isCreate: false,
-            partyname: '新建部门'
+            partyname: '新建部门',
+            options: [{
+                value: 'department',
+                label: '部门'
+            }, {
+                value: 'user',
+                label: '成员'
+            }],
+            currentType: ''
         }
     },
     methods: {
+        eventUsersChanged(data) {
+            console.log(data);
+        },
         onCreate() {
             this.isCreate = true;
         },
         async onConfirm() {
             this.partyname = '新建部门';
             this.isCreate = false;
-            await post('api/department/create', {
+            if(this.currentType === 'department') {
+                await post('api/department/create', {
                 params:{
                     parentid: this.partyid,
                     name: this.partyname
                 }
             });
+            }
             window.location.reload();
         },
         async onDelete() {
             try {
-                await this.$confirm('确认是否删除该部门？（注：不能删除根部门；不能删除含有子部门、成员的部门）', '提示', {
+                const result = await this.$confirm('确认是否删除该部门？（注：不能删除根部门；不能删除含有子部门、成员的部门）', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 })
+                console.log(result);
                 try {
                 const  {data: { errcode }} = await get('api/department/delete', {
                     params:{
@@ -76,6 +113,10 @@ export default {
             } catch(err) {
                 console.log(err);
             } 
+        },
+        onCancel() {
+            this.currentType = '';
+            this.isCreate = false;
         }
     },
 }
@@ -94,5 +135,8 @@ export default {
         width: 100%;
         text-align: center;
         line-height: calc(680px - 57px);
+    }
+    .dialog-body {
+        margin-top: 20px;
     }
 </style>
