@@ -1,18 +1,7 @@
 <template>
     <div class="contacts block">
         <div class="tree">
-        <el-tree      
-        lazy
-        :load="eventLoadNode"
-        :props ="props"
-        @node-click="eventNodeClick"
-         >
-         <span class="node-item" slot-scope="{node,data}">
-             <i v-if="data.type == 'department'" class="node-icon el-icon-folder"></i>
-             <i v-if="data.type == 'user'" class="node-icon el-icon-user"></i>
-             <span class="node-title">{{node.label}}</span>
-         </span>
-         </el-tree>
+        <ContactsTree ></ContactsTree>
          </div>
          <div class="content">
              <userprofile :userid="userid"></userprofile>
@@ -21,10 +10,12 @@
 </template>
 <script>
 import {get} from 'axios';
+import ContactsTree from '../../components/contactsTree.vue';
 import userprofile from './userprofile.vue'
 export default {
     name: 'contextManage',
     components: {
+        ContactsTree,
         userprofile
     },
     data() {

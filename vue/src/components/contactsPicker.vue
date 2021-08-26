@@ -7,7 +7,7 @@
     :visible-arrow="false"  
     popper-class="contacts-picker"
     trigger="click">
-      <ContactsTree 
+      <ContactsTree        
         @onContactSelected="eventContactSelected"
        ></ContactsTree>
        <ContactsTag slot="reference" ></ContactsTag>

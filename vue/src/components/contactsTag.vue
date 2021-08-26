@@ -4,7 +4,7 @@
             <el-tag class="tag" type = 'primary' size = 'small'>斯内普</el-tag>
             <el-tag class="tag" type = 'primary' size = 'small'>斯内普</el-tag>
             <el-tag class="tag" type = 'primary' size = 'small'>斯内普</el-tag>
-
+            
         </div>
     </div>
 </template>

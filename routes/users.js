@@ -4,25 +4,8 @@ const FormData = require('form-data');
 
 const axios = require('axios');
 const parser = require('url-parse');
-const getToken = async () => {
+const AccessToken = require('../server/accesstoken');
 
-    return '4fp-drIWCAmDIIJvRv65cYP8PwuMw2dCuJ18ynkRQWZ1R-3aLtGgBbodxWySXkKsA8ZkZ_5ju2Q5DlZyOZaD94vDMWh4kHuMNwVvvBYSbzkAwM8YOzMqpa2fc_8fc7heqbycHTejaa7L1GjTvQ2GFu5GdGW0s_49aVpbSRae-0RISz7VusciOI3edE7cuzy8JF-4clOOJdnZbZrKskprHw';
-
-    let corpid = 'ww827c549fa062654e';
-    let corpsecret = '***REMOVED***';
-
-    const { data: { access_token } } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
-        params: {
-            corpid,
-            corpsecret
-        }
-    });
-    console.log('-----------------------');
-    console.log('Access Token OK!');
-    console.log(access_token);
-    console.log('-----------------------');
-    return access_token;
-};
 
 
 router.get('/user/get', async function (req, res, next) {
@@ -32,7 +15,7 @@ router.get('/user/get', async function (req, res, next) {
     console.log(query);
     console.log('Request query is :')
 
-    const access_token = await getToken();
+    const access_token = await AccessToken.getToken();
 
     
 
@@ -56,7 +39,7 @@ router.get('/department/list', async function (req, res, next) {
     if (!query.id) {
         query.id = 1;
     }
-    const access_token = await getToken();
+    const access_token = await AccessToken.getToken();
     console.log(query);
 
 
@@ -126,7 +109,7 @@ router.post('/message/send', async function (req, res, next) {
     }
     request_data.safe = form_parames.safe ? '1' : '0';
     console.log(request_data);    
-    const access_token = await getToken();
+    const access_token = await AccessToken.getToken();
     const {data} =  await axios.post('https://qyapi.weixin.qq.com/cgi-bin/message/send', 
     request_data,
     {
@@ -149,7 +132,7 @@ router.post('/media/upload', async function (req, res, next) {
     console.log(req.files);
     
     let {type} = req.body || {} ;
-    const access_token = await getToken();
+    const access_token = await AccessToken.getToken();
 
     // 组件一个form，用来上传文件
     const form = new FormData();

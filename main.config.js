@@ -1,5 +1,5 @@
 module.exports = {
-    corpid:'YOUR_CORP_ID',
-    secret:'YOUR_SECRET',
+    corpid:'ww827c549fa062654e',
+    secret:'***REMOVED***',
     robot:'YOUR_ROBOT_WEBHOOK'
 }
