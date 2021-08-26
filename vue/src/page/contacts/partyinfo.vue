@@ -20,7 +20,11 @@
     </div>
 </template>
 <script>
+import {post} from 'axios';
 export default {
+    props: {
+        partyid: Number
+    },
     data() {
         return {
             isCreate: false,
@@ -31,9 +35,17 @@ export default {
         onCreate() {
             this.isCreate = true;
         },
-        onConfirm() {
-            console.log('edit');
-            this.partyname = '新建部门'
+        async onConfirm() {
+            this.partyname = '新建部门';
+            this.isCreate = false;
+            const result = await post('api/department/create', {
+                params:{
+                    parentid: this.partyid,
+                    name: this.partyname
+                }
+            });
+            console.log(result);
+            window.location.reload();
         },
         onDelete() {
             console.log('delete');
