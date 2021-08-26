@@ -73,9 +73,7 @@
         </el-aside>
         <el-main style="padding:0;">
           <div class="content-header">
-            <h1 class="content-header-title">组织架构树</h1>
-            <div class="content-header-intro">拉取企业通讯录的组织架构数，可以预览部门和成员的详情，对成员信息进行编辑，对部门进行成员的添加、删除、移动等操作</div>
-            <!-- 通用应用向成员、部门、标签推送多种类型的消息，包括文本、图片、图文、语音视频等等 -->
+            <router-view name="title"></router-view>
           </div>
           <div class="content-body">
             <router-view ></router-view>
@@ -152,19 +150,6 @@ html,body{
   padding: 80px 24px 48px 60px;
   border-bottom: 1px solid #e7e7e7;
   background: #fff;
-}
-.content-header-title{
-  font-size: 48px;
-  text-align: left;
-  line-height: 56px;
-  color:#333;
-}
-.content-header-intro{
-  margin-top: 16px;
-    font-size: 14px;
-    color: rgba(0,0,0,0.6);
-    line-height: 22px;
-    
 }
 .content-body{
   padding:60px;

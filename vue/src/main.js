@@ -7,7 +7,7 @@ import App from './App.vue'
 import Contacts from './page/contacts/main.vue';
 import Message from './page/message/message.vue';
 import Intro from './page/intro/intro.vue';
-
+import Title from './components/title.vue';
 import vueRouter from 'vue-router';
 
 
@@ -19,16 +19,40 @@ Vue.use(ElementUI);
 new Vue({
   router: new vueRouter({
     routes: [{
+      name: 'contacts',
       path: '/contacts',
-      component: Contacts,
+      components: {
+        default: Contacts,
+        title: Title
+      },
+      content: {
+        title: '组织架构树',
+        desc: '拉取企业通讯录的组织架构数，可以预览部门和成员的详情，对成员信息进行编辑，对部门进行成员的添加、删除、移动等操作'
+      }
     },
     {
+      name: 'intro',
       path: '/intro',
-      component: Intro,
+      components: {
+        default: Intro,
+        title: Title
+      },
+      content: {
+        title: '组织架构树',
+        desc: '拉取企业通讯录的组织架构数，可以预览部门和成员的详情，对成员信息进行编辑，对部门进行成员的添加、删除、移动等操作'
+      }
     },
     {
+      name: 'message',
       path: '/message',
-      component: Message,
+      components: {
+        default: Message,
+        title: Title
+      },
+      content: {
+        title: '组织架构树',
+        desc: '拉取企业通讯录的组织架构数，可以预览部门和成员的详情，对成员信息进行编辑，对部门进行成员的添加、删除、移动等操作'
+      }
     }
   ]
   }),
