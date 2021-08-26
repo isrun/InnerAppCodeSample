@@ -1,10 +1,13 @@
 <template>
     <div class="contacts block">
         <div class="tree">
-        <ContactsTree ></ContactsTree>
+        <ContactsTree 
+        @onContactSelected="eventNodeClick"
+        ></ContactsTree>
          </div>
          <div class="content">
-             <userprofile :userid="userid"></userprofile>
+             <userprofile 
+             :userid="userid"></userprofile>
          </div>
     </div>
 </template>
