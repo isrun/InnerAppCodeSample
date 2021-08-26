@@ -1,12 +1,12 @@
 <template>
     <div class="tags-container">
         <div class="tags">
-            <el-tag 
+            <span
             v-for="item in items" 
             :key="item.id" 
             class="tag" 
             type ='' 
-            size ='small'>{{item.name}}</el-tag>
+            size ='small'><i class="tag-icon el-icon-user"></i><span class="tag-name">{{item.name}}</span></span>
         </div>
         
     </div>
@@ -48,7 +48,14 @@ export default {
     line-height: 18px;
     margin-right: 4px;
 }
-
+.tag-icon{
+    margin-right: 3px;
+    
+}
+.tag-name{
+    
+    vertical-align: baseline;
+}
 .tag-remove{
     display: none;
     margin-left:3px;

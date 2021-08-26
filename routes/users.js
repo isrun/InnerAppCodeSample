@@ -40,10 +40,12 @@ router.get('/department/list', async function (req, res, next) {
         query.id = 1;
     }
     const access_token = await AccessToken.getToken();
-    console.log(query);
+    
 
-
+    let final_data = [];
+    let filter_users = [];
     let filter_departments = [];
+
     const { data:{department:departmentlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/department/list', {
         params: {
             access_token,
@@ -60,41 +62,50 @@ router.get('/department/list', async function (req, res, next) {
             });
         }
     });
-    // if (filter_departments.length > 0) {
-    //     for (let index = 0; index < filter_departments.length; index++) {
-    //         let element = filter_departments[index];
-    //         if (departmentlist.some(item => {
-    //             return item.parentid == element.id
-    //         })) {
-    //             // element.leaf = false;
-
-    //         } else {
-    //             // element.leaf = true;
-    //         }
-    //     }
-    // }
-
-
-    const { data:{userlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/simplelist', {
-        params: {
-            access_token,
-            department_id: query.id || '',
-            fetch_child: 0
-        }
-    });
-
-    let filter_users = userlist.map(user => {
-        return {
-            id:user.userid || '',
-            name : user.name || '',
-            leaf : true,
-            type : 'user'
-        };
-    });
-
     console.log(filter_departments);
-    console.log(filter_users);
-    res.send([].concat(filter_users,filter_departments));
+    
+
+    
+
+    if(query.need_user == 1){
+        const { data:{userlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/simplelist', {
+            params: {
+                access_token,
+                department_id: query.id || '',
+                fetch_child: 0
+            }
+        });
+
+        filter_users = userlist.map(user => {
+            return {
+                id:user.userid || '',
+                name : user.name || '',
+                leaf : true,
+                type : 'user'
+            };
+        });
+        console.log(filter_users);
+        
+    }
+    else{
+        if (filter_departments.length > 0) {
+            for (let index = 0; index < filter_departments.length; index++) {
+                let element = filter_departments[index];
+                if (departmentlist.some(item => {
+                    return item.parentid == element.id
+                })) {
+                    element.leaf = false;
+
+                } else {
+                    element.leaf = true;
+                }
+            }
+        }
+    }
+   
+    
+    final_data = [].concat(filter_users,filter_departments);
+    res.send(final_data);
 
 
 });

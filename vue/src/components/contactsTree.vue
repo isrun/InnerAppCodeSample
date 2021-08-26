@@ -39,13 +39,16 @@ export default {
             let id ;
             if(node.level === 0){
                 id = 1;
-            }
-            else{
+            } else{
                 id = node.data.id;
             }
+
+            let need_user = this.mode.split("|").indexOf('user') > -1 ? '1' : '0';
+
             let {data} = await get('api/department/list',{
                 params:{
-                    id
+                    id,
+                    need_user
                 }
             });
             return resolve(data  || []);        
@@ -59,9 +62,6 @@ export default {
                     name:data.name
                 });
             }
-
-            
-
         }
     },
 }

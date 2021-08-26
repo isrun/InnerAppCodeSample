@@ -39,13 +39,12 @@ export default {
         this.visible = false;        
       },
       addItem(item){
-        if(this.items.some( x =>{
-          return (x.id === item.id);
-        })){
-          return
+        if(this.items.some( x =>{return (x.id === item.id)})){
+          return;
         }
         else{
           this.items.push(item);
+          this.$emit('onContactsChanged',this.items);
         }
         
       }

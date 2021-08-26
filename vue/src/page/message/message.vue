@@ -16,7 +16,8 @@
             </el-form-item>
             <el-form-item label="接收成员">                
                 <ContactsPicker
-                
+                    mode="user"
+                    @onContactsChanged='eventUsersChanged'
                 ></ContactsPicker>
             </el-form-item>
 
@@ -37,14 +38,49 @@
             <el-form-item v-if="form.msgtype ==='image'" label="上传图片">
                 <el-upload
                     class="upload-demo"                    
-                    drag
+                    :multiple='false'
                     :data="{type:this.form.msgtype}"
                     action="api/media/upload"
                     :on-success="eventUploadSuccess"                    
                     name="media">
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div class="el-upload__tip" slot="tip">单个图片不超过 2MB，支持JPG,PNG格式</div>
+                </el-upload>
+            </el-form-item>
+            <el-form-item v-else-if="form.msgtype ==='voice'" label="上传音频">
+                <el-upload
+                    class="upload-demo"                    
+                    :multiple='false'
+                    :data="{type:this.form.msgtype}"
+                    action="api/media/upload"
+                    :on-success="eventUploadSuccess"                    
+                    name="media">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div class="el-upload__tip" slot="tip">单个文件不超过 2MB，播放长度不超过60s，仅支持AMR格式</div>
+                </el-upload>
+            </el-form-item>
+            <el-form-item v-else-if="form.msgtype ==='video'" label="上传视频">
+                <el-upload
+                    class="upload-demo"                    
+                    :multiple='false'
+                    :data="{type:this.form.msgtype}"
+                    action="api/media/upload"
+                    :on-success="eventUploadSuccess"                    
+                    name="media">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div class="el-upload__tip" slot="tip">单个文件不超过 10MB，支持MP4格式</div>
+                </el-upload>
+            </el-form-item>
+            <el-form-item v-else-if="form.msgtype ==='file'" label="上传文件">
+                <el-upload
+                    class="upload-demo"                    
+                    :multiple='false'
+                    :data="{type:this.form.msgtype}"
+                    action="api/media/upload"
+                    :on-success="eventUploadSuccess"                    
+                    name="media">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div class="el-upload__tip" slot="tip">单个文件不超过 20MB</div>
                 </el-upload>
             </el-form-item>
             <el-form-item>
@@ -93,30 +129,55 @@ export default {
               media_id:''
           }
         },
-        media_id:{}
+        media_id:'',
+        user_list:[]
         }
+        
     },
     
     methods:{
         async onSubmit() {
 
             console.log(this.form);
-            let {data} = await post('api/message/send',{            
-                form:this.form
-                
-            })
-            console.log(data);
+            try{
+                let {data:{errcode,errmsg}} = await post('api/message/send',{            
+                    form:this.form
+                });
+                if(errcode == '0'){
+                    this.$message.success('发送成功');
+                }
+                else{
+                    let msgcontent = errmsg.split(',')[0];
+                    this.$message.error(msgcontent);
+                }
+            }
+            catch(err){
+                this.$message.error('发送失败');
+            }
+            
             
         },
         eventUploadSuccess(response){
             try{
-                let {media_id,type} = response;
-                this.form[type]['media_id'] = media_id;
+                
+                let {media_id,type,errcode,errmsg} = response;
+                if(errcode == '0'){
+                    this.form[type]['media_id'] = media_id;
+                    this.$message.success('上传成功');                    
+                }
+                else{
+                    let msgcontent = errmsg.split(',')[0];
+                    this.$message.error(msgcontent);
+                }
+                
             }
-            catch{
+            catch(error){
                 this.$message.error('上传失败');
             }
             
+        },
+        eventUsersChanged(items){            
+            this.form.touser = items.map( item => {return item.id}).join('|');
         }
     }
     
