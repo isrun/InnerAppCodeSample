@@ -1,7 +1,7 @@
 module.exports = {
     corpid:'ww827c549fa062654e',
     secret:'***REMOVED***',
-    robot:'YOUR_ROBOT_WEBHOOK',
+    robot:'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c3f73dde-bac6-46ad-8047-06dde1c001c8',
     address: {
         secret: '***REMOVED***'
     }

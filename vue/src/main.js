@@ -8,6 +8,7 @@ import Contacts from './page/contacts/main.vue';
 import Message from './page/message/message.vue';
 import Intro from './page/intro/intro.vue';
 import Media from './page/media/media.vue';
+import Robot from './page/robot/robot.vue';
 import Title from './components/title.vue';
 import vueRouter from 'vue-router';
 
@@ -64,6 +65,18 @@ new Vue({
       },
       content: {
         title: '素材管理',
+        desc: '企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。'
+      }
+    },
+    {
+      name: 'robot',
+      path: '/robot',
+      components: {
+        default: Robot,
+        title: Title
+      },
+      content: {
+        title: '群机器人',
         desc: '企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。'
       }
     }
