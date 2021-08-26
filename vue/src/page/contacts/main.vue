@@ -3,6 +3,7 @@
         <div class="tree">
         <ContactsTree 
         @onContactSelected="eventNodeClick"
+        mode="user|department"
         ></ContactsTree>
          </div>
          <div class="content">

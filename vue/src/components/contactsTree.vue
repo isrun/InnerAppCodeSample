@@ -16,6 +16,12 @@
 import {get} from 'axios';
 export default {
     name: 'contactsTree',
+    props:{
+        mode:{
+            type:String,
+            default:()=>{return 'user'}
+        }
+    },
     components: {
         
     },
@@ -25,7 +31,7 @@ export default {
                 label:'name',
                 isLeaf:'leaf'
             },
-            userid:''
+            
         }
     },
     methods: {
@@ -45,16 +51,16 @@ export default {
             return resolve(data  || []);        
         },
         eventNodeClick(data){
-            console.log(data);
-            if(data.type == 'user'){
-                this.userid = data.id || ''
+            
+            if(this.mode.split('|').indexOf(data.type) > -1){
+                this.$emit('onContactSelected',{
+                    type:data.type,
+                    id:data.id,
+                    name:data.name
+                });
             }
 
-            this.$emit('onContactSelected',{
-                type:data.type,
-                id:data.id,
-                name:data.name
-            });
+            
 
         }
     },

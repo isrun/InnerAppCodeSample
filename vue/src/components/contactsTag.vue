@@ -1,18 +1,22 @@
 <template>
     <div class="tags-container">
         <div class="tags">
-            <el-tag class="tag" type = '' size = 'small'>斯内普</el-tag>
-            <el-tag class="tag" 
-            type = 'primary' size = 'small'>斯内普</el-tag>
-                <el-tag class="tag" 
-                type = 'primary' size = 'small'>斯内普</el-tag>
-
+            <el-tag 
+            v-for="item in items" 
+            :key="item.id" 
+            class="tag" 
+            type ='' 
+            size ='small'>{{item.name}}</el-tag>
         </div>
+        
     </div>
 </template>
 
 <script>
 export default {
+    props:{
+        items:Array
+    },
     data(){
         return {};
     }
@@ -25,6 +29,7 @@ export default {
     padding:5px;
     border-radius: 3px;
     cursor: pointer;
+    min-height: 24px;
 }
 .tags{
     overflow: hidden;

@@ -9,8 +9,9 @@
     trigger="click">
       <ContactsTree        
         @onContactSelected="eventContactSelected"
+        :mode="mode"
        ></ContactsTree>
-       <ContactsTag slot="reference" ></ContactsTag>
+       <ContactsTag :items="items" slot="reference" ></ContactsTag>
       
   </el-popover>    
 </template>
@@ -19,10 +20,13 @@
 import ContactsTree from './contactsTree.vue';
 import ContactsTag from './contactsTag.vue';
 export default {
+  props:{
+    mode:String
+  },
   data(){
     return {
-      visible:false,
-      user:''
+      visible:false,      
+      items:[]
     }
   },
     components:{
@@ -30,10 +34,19 @@ export default {
       ContactsTag
     },
     methods:{
-      eventContactSelected(data){
-        console.log(data);
-        this.user = data.name;
-        this.visible = false;
+      eventContactSelected(item){
+        this.addItem(item)
+        this.visible = false;        
+      },
+      addItem(item){
+        if(this.items.some( x =>{
+          return (x.id === item.id);
+        })){
+          return
+        }
+        else{
+          this.items.push(item);
+        }
         
       }
     }

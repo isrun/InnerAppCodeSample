@@ -15,7 +15,9 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="接收成员">                
-                <ContactsPicker></ContactsPicker>
+                <ContactsPicker
+                
+                ></ContactsPicker>
             </el-form-item>
 
             <el-form-item label="接收部门">
