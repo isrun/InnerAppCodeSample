@@ -7,20 +7,26 @@
         ></ContactsTree>
          </div>
          <div class="content">
-             <userprofile 
-             :userid="userid"></userprofile>
+            <Userprofile 
+            v-if="userid"
+            :userid="userid">
+            </Userprofile>
+            <Partyinfo v-else-if="partyid" :partyid="partyid">{{partyName}}</Partyinfo>
+            <div v-else class="content_desc">组织架构树</div>
          </div>
     </div>
 </template>
 <script>
 import {get} from 'axios';
 import ContactsTree from '../../components/contactsTree.vue';
-import userprofile from './userprofile.vue'
+import Userprofile from './userprofile.vue';
+import Partyinfo from './partyinfo.vue'
 export default {
     name: 'contextManage',
     components: {
         ContactsTree,
-        userprofile
+        Userprofile,
+        Partyinfo
     },
     data() {
         return {
@@ -28,7 +34,9 @@ export default {
                 label:'name',
                 isLeaf:'leaf'
             },
-            userid:''
+            userid:'',
+            partyName: '',
+            partyid: ''
         }
     },
     methods: {
@@ -48,11 +56,16 @@ export default {
             return resolve(data  || []);        
         },
         eventNodeClick(data){
-            console.log(data);
+            this.userid = '';
+            this.partyName = '';
+            this.partyid = '';
             if(data.type == 'user'){
                 this.userid = data.id || ''
             }
-
+            if(data.type === 'department') {
+                this.partyName = data.name;
+                this.partyid = data.id;
+            }
         }
     },
 }
@@ -62,12 +75,21 @@ export default {
     display: flex;
 }
 .tree{
+        border: 1px solid #e9eaeb;
         width:200px;
     }
 .content{
     flex: 1;
-    /* background:#f1f1f1; */
-    
+    border: 1px solid #e9eaeb;
+    border-left: 1px solid transparent;
+    height: 680px;
+}
+.content_desc {
+    width: 100%;
+    font-size: 48px;
+    text-align: center;
+    line-height: 680px;
+    color: #333;
 }
 
 .node-item{
@@ -75,10 +97,4 @@ export default {
     padding:2px 0;
     font-size: 14px;
 }
-.node-title{
-    padding-left:4px;
-}
-
-
-
 </style>

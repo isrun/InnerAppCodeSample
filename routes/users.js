@@ -58,6 +58,7 @@ router.get('/department/list', async function (req, res, next) {
             filter_departments.push({
                 id: item.id,
                 name: item.name || '',
+                order: item.order,
                 type: 'department'
             });
         }
@@ -110,7 +111,20 @@ router.get('/department/list', async function (req, res, next) {
 
 });
 
-
+router.post('/department/create', async function(req, res) {
+    const {form:form_params} = req.body || {};
+    const {data} =  await axios.post('https://qyapi.weixin.qq.com/cgi-bin/message/send', 
+    request_data,
+    {
+        params: {
+            access_token,
+            parentid: form_params.parentid,
+            name: form_params.name
+        }
+        
+    });
+    res.send(data);
+});
 router.post('/message/send', async function (req, res, next) {
     let {form:form_parames} = req.body || {};
     console.log(form_parames);

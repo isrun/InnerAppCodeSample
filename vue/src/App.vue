@@ -146,7 +146,7 @@ html,body{
 }
 .content-body{
   padding:60px;
-  
+  min-height: 680px;
 }
 .block{
     padding:20px;

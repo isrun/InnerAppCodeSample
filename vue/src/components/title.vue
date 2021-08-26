@@ -23,6 +23,11 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+.content-header {
+  padding: 80px 24px 48px 60px;
+  border-bottom: 1px solid #e7e7e7;
+  background: #fff;
+}
 .content-header-title{
   font-size: 48px;
   text-align: left;

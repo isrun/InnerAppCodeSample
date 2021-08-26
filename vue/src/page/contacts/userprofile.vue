@@ -1,16 +1,14 @@
 <template>
-<div>
-    <template v-if="userid">
-        <div class="profile">
+<div class="profile">
             <div class="profile-banner">
-                <div profile-title>成员详情</div>                 
+                <div class="profile-title">成员详情</div>                 
                 <div class="">
-                    <el-link style="margin-right:10px;" type="primary" size="mini">编辑</el-link>
-                    <el-link type="danger" size="mini">删除</el-link>
+                    <el-link style="margin-right:10px;" type="primary" size="mini" @click="onEdit">编辑</el-link>
+                    <el-link type="danger" size="mini" @click="onDelete">删除</el-link>
                 </div>
-                
             </div>
-            <div class="profile-header">                 
+            <div class="profile-content">
+                <div class="profile-header">                 
                 <el-avatar
                     class="profile-avatar"
                  shape="square" :size="64"
@@ -53,12 +51,8 @@
                         <div class="profile-label">身份：</div>
                         <div class="profile-option">{{user.isleader?'上级':'员工'}}</div>
                     </div>
-
                 </div>
-
-        </div>
-        
-    </template>
+            </div>
 </div>    
 </template>
 
@@ -81,6 +75,12 @@ export default {
                 }
             })
             return profile;
+        },
+        onEdit() {
+            console.log('edit');
+        },
+        onDelete() {
+            console.log('delete');
         }
     },
     watch:{
@@ -96,7 +96,7 @@ export default {
 
 
         }
-    }
+    },
 }
 </script>
 
@@ -105,16 +105,17 @@ export default {
 .profile{
     font-size:14px;
     line-height: 24px;
-    padding-left:15px;
 }
 .profile-banner{
-    
     padding:10px 20px;    
     margin-bottom: 15px;
     background: #f7f7f7;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.profile-content {
+    padding-left:15px;
 }
 .profile-title{
     font-size: 16px;
