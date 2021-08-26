@@ -71,7 +71,7 @@ export default {
         async userprofile (){
             let {profile} = await get('api/department/list',{
                 params:{
-                    userid:this.userid
+                    userid: this.userid
                 }
             })
             return profile;
@@ -79,8 +79,36 @@ export default {
         onEdit() {
             console.log('edit');
         },
-        onDelete() {
-            console.log('delete');
+        async onDelete()  {
+            try {
+                await this.$confirm('确认是否删除该成员？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                })
+                try {
+                const  {data: { errcode }} = await get('api/user/delete', {
+                    params:{
+                        userid: this.userid
+                    }
+                });
+                if(errcode) {
+                    throw new Error('' + errcode);
+                }
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+                setTimeout(window.location.reload, 1000);
+                } catch(err) {
+                    this.$message({
+                        type: 'error',
+                        message: '' + err
+                    });
+                }
+            } catch(err) {
+                console.log(err);
+            } 
         }
     },
     watch:{

@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
   console.log(`query: ${JSON.stringify(req.query)}`);
   console.log(`params: ${JSON.stringify(req.params)}`);
   res.send = function(data) {
-    console.log(JSON.stringify(data));
+    console.log(`${JSON.stringify(data)}\n`);
     send.call(this, data);
   }
   next();

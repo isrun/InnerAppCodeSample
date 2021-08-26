@@ -15,7 +15,17 @@ module.exports = function(router) {
         res.send(data);
     });
     
-    
+    router.get('/user/delete', async function (req, res, next) {
+        const query = req.query || {};
+        const access_token = await AccessToken.getToken();
+        const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/get', {
+            params: {
+                access_token,
+                userid: query.userid
+            }
+        });
+        res.send(data);
+    });
     
     router.get('/department/list', async function (req, res, next) {
         const query = req.query || {};
