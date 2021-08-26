@@ -4,7 +4,7 @@ const FormData = require('form-data');
 
 const axios = require('axios');
 const AccessToken = require('../server/accesstoken')();
-const addresslistRouteInit = require('../server/addressList');
+const addresslistRouteInit = require('../server/contactController');
 addresslistRouteInit(router);
 router.post('/message/send', async function (req, res, next) {
     let {form:form_parames} = req.body || {};
