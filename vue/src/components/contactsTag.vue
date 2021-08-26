@@ -1,24 +1,30 @@
 <template>
     <div class="tags-container">
         <div class="tags">
-            <el-tag class="tag" type = 'primary' size = 'small'>斯内普</el-tag>
-            <el-tag class="tag" type = 'primary' size = 'small'>斯内普</el-tag>
-            <el-tag class="tag" type = 'primary' size = 'small'>斯内普</el-tag>
-            
+            <el-tag class="tag" type = '' size = 'small'>斯内普</el-tag>
+            <el-tag class="tag" 
+            type = 'primary' size = 'small'>斯内普</el-tag>
+                <el-tag class="tag" 
+                type = 'primary' size = 'small'>斯内普</el-tag>
+
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    
+    data(){
+        return {};
+    }
 }
 </script>
 
 <style scoped>
 .tags-container{
-    border:1px solid #e7e7e7;
+    border:1px solid #dcdfe6;
     padding:5px;
+    border-radius: 3px;
+    cursor: pointer;
 }
 .tags{
     overflow: hidden;

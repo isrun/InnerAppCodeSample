@@ -11,9 +11,9 @@ const AccessToken = require('../server/accesstoken');
 router.get('/user/get', async function (req, res, next) {
     console.log('User!!!');
 
-    const query = req.query || {};
+        const query = req.query || {};
     console.log(query);
-    console.log('Request query is :')
+    console.log('Request query is :');
 
     const access_token = await AccessToken.getToken();
 
@@ -43,7 +43,7 @@ router.get('/department/list', async function (req, res, next) {
     console.log(query);
 
 
-    let filter_departments = []
+    let filter_departments = [];
     const { data:{department:departmentlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/department/list', {
         params: {
             access_token,
@@ -57,7 +57,7 @@ router.get('/department/list', async function (req, res, next) {
                 id: item.id,
                 name: item.name || '',
                 type: 'department'
-            })
+            });
         }
     });
     // if (filter_departments.length > 0) {
@@ -89,7 +89,7 @@ router.get('/department/list', async function (req, res, next) {
             name : user.name || '',
             leaf : true,
             type : 'user'
-        }
+        };
     });
 
     console.log(filter_departments);
@@ -106,7 +106,7 @@ router.post('/message/send', async function (req, res, next) {
     let request_data  = {
         ...form_parames,
         agentid:1000044,
-    }
+    };
     request_data.safe = form_parames.safe ? '1' : '0';
     console.log(request_data);    
     const access_token = await AccessToken.getToken();
