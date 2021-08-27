@@ -8,8 +8,8 @@
         </div>
         <div class="partyinfo-content">
             <slot></slot>
-            <el-button @click="onCreateUser">新建成员</el-button>
-            <el-button type="primary" @click="onCreateParty">新建部门</el-button>
+            <el-button size="small"  type="primary" @click="onCreateUser">新建成员</el-button>
+            <el-button size="small" @click="onCreateParty">新建部门</el-button>
         </div>
         <el-dialog title="创建" :visible="isCreate">
             <div class="dialog-body">

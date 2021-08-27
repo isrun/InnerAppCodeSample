@@ -14,7 +14,7 @@
             <Partyinfo v-if="partyid" :partyid="partyid">
                 <div class="content_desc">{{partyName}}</div>
             </Partyinfo>
-            <div v-if="!(userid||partyid)" class="content_desc default">组织架构树</div>
+            <div v-if="!(userid||partyid)" class="content_desc default">通讯录管理</div>
          </div>
     </div>
 </template>

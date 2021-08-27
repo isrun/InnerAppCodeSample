@@ -39,7 +39,7 @@
                 <i class="el-icon-coordinate"></i>
                 <span slot="title">群机器人</span>
               </el-menu-item>
-              <el-menu-item index="scanqr">
+              <el-menu-item index="qrscan">
                 <i class="el-icon-mobile"></i>
                 <span slot="title">扫码登录</span>
               </el-menu-item>              
