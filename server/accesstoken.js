@@ -11,7 +11,14 @@ let AccessToken = function(secretType) {
             return create_time + expire_time < current;
         },
         async getToken () {
-            const token = JSON.parse(fs.readFileSync(path.join(__dirname, '../cache/token.json'), 'utf8'));
+            let token = {};
+            try {
+                token = JSON.parse(fs.readFileSync(path.join(__dirname, '../cache/token.json'), {
+                    encoding: 'utf-8',
+                }));
+            } catch(err) {
+
+            }
             // return 'lXRg_-GSu_twnNQ78ipfy9M9FbrGbNCTvG83XGnfCu-OAb8vkv59ICud4VDcP8xZoz50yV71jU3_UsJ-peLju1RQjDidPeHalLYt1KwQiNfEy0nD22w_hFYMrsanXQKo162pvQ3aN6deZPAtNppb1-0yI_DM088udQq7wmyreEdnWPCQegAsCkzC7N5QJl-LapZv2VM5DbStQ6CzHj9cQw';
             if(!token[temp] || this._isExpire(token[temp].create_time, token[temp].expire_time)) {
                 let corpid = Config.corpid;
