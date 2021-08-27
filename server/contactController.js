@@ -1,5 +1,4 @@
 const axios = require('axios');
-const config = require('../main.config');
 const AccessToken = require('./accesstoken')('contact');
 
 module.exports = function(router) {

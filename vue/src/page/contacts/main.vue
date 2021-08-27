@@ -14,7 +14,10 @@
             <Partyinfo v-if="partyid" :partyid="partyid">
                 <div class="content_desc"><el-icon class="party-icon el-icon-folder"></el-icon>{{partyName}}</div>
             </Partyinfo>
-            <div v-if="!(userid||partyid)" class="content_desc default"><el-icon class="party-icon  el-icon-folder"></el-icon>通讯录管理</div>
+            <template v-if="!(userid||partyid)">
+                <div  class="content_desc default"><el-icon class="party-icon  el-icon-folder"></el-icon>通讯录管理</div>
+                <CreateUserAndDepart></CreateUserAndDepart>
+            </template>
          </div>
     </div>
 </template>
@@ -22,13 +25,15 @@
 import {get} from 'axios';
 import ContactsTree from '../../components/contactsTree.vue';
 import Userprofile from './userprofile.vue';
-import Partyinfo from './partyinfo.vue'
+import Partyinfo from './partyinfo.vue';
+import CreateUserAndDepart from './createUserAndDepart.vue';
 export default {
     name: 'contextManage',
     components: {
         ContactsTree,
         Userprofile,
-        Partyinfo
+        Partyinfo,
+        CreateUserAndDepart
     },
     data() {
         return {
@@ -87,15 +92,20 @@ export default {
     height: 680px;
 }
 .content_desc {
+    height: 300px;
     width: 100%;
+    text-align: center;
+    line-height: 300px;
+    font-size: 48px;
+    color: #333;
+    margin-bottom: 30px;
     padding-top:120px;
     font-size: 28px;
     font-weight: 400;
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
 }
-.content_desc.default {    
+.content_desc.default {
+    height: 400px;
+    line-height: 400px;
 }
 
 .party-icon {

@@ -8,104 +8,22 @@
         </div>
         <div class="partyinfo-content">
             <slot></slot>
-            <el-button size="small"  type="primary" @click="onCreateUser">新建成员</el-button>
-            <el-button size="small" @click="onCreateParty">新建部门</el-button>
+            <CreateUserAndDepart :partyid="partyid"></CreateUserAndDepart>
         </div>
-        <el-dialog width="600px" title="新建" :visible="isCreate">
-            <div class="dialog-body">
-                <div
-                v-if="currentType === 'user'"
-                class="dialog-userinfo-wrapper"
-                >
-                <el-form ref="form" :model="userinfo" label-width="80px">
-                    <el-form-item label="userid">
-                        <el-input v-model="userinfo.userid"></el-input>
-                    </el-form-item>
-                    <el-form-item label="姓名">
-                        <el-input v-model="userinfo.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="手机号">
-                        <el-input v-model="userinfo.mobile"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮箱">
-                        <el-input v-model="userinfo.email"></el-input>
-                    </el-form-item>
-                </el-form>
-                </div>
-                <el-input 
-                    v-if="currentType === 'department'" 
-                    v-model="partyname" 
-                    placeholder="请输入新部门名">
-                </el-input>
-            </div>
-            <span slot="footer" class="dialog-footer">
-                
-                <el-button size="small" type="primary" @click="onConfirm">确定</el-button>
-                <el-button size="small" @click="onCancel">取消</el-button>
-            </span>
-        </el-dialog>
     </div>
 </template>
 <script>
-const initUserInfo = {
-    userid: '',
-    name: '',
-    department: [],
-    mobile: '',
-    email: ''
-}
-import { post, get } from 'axios';
+import { get } from 'axios';
+import CreateUserAndDepart from './createUserAndDepart.vue';
 export default {
+    components: {
+        CreateUserAndDepart
+    },
     props: {
         partyid: Number
     },
-    data() {
-        return {
-            isCreate: false,
-            partyname: '新建部门',
-            options: [{
-                value: 'department',
-                label: '部门'
-            }, {
-                value: 'user',
-                label: '成员'
-            }],
-            currentType: '',
-            userinfo: Object.assign({}, initUserInfo)
-        }
-    },
     methods: {
-        initDialoginfo() {
-            this.currentType = '';
-            this.partyname = '新建部门';
-            this.userinfo = Object.assign({}, initUserInfo);
-        },
-        onCreateUser() {
-            this.currentType = 'user';
-            this.isCreate = true;
-            this.userinfo.department = [this.partyid];
-        },
-        onCreateParty() {
-            this.currentType = 'department';
-            this.isCreate = true;
-        },
-        async onConfirm() {
-            this.isCreate = false;
-            if(this.currentType === 'department') {
-                await post('api/department/create', {
-                    parentid: this.partyid,
-                    name: this.partyname
-                });
-            }else if(this.currentType === 'user') {
-                await post('api/user/create', {
-                    ...this.userinfo
-                });
-            }
-            window.location.reload();
-            this.initDialoginfo();
-        },
         async onDelete() {
-            this.initDialoginfo();
             try {
                 await this.$confirm('确认是否删除该部门？（注：不能删除根部门；不能删除含有子部门、成员的部门）', '提示', {
                     confirmButtonText: '确定',
@@ -126,7 +44,7 @@ export default {
                     type: 'success',
                     message: '删除成功!'
                 });
-                setTimeout(window.location.reload, 1000);
+                setTimeout(() => window.location.reload(), 1000);
                 } catch(err) {
                     this.$message({
                         type: 'error',
@@ -137,10 +55,6 @@ export default {
                 console.log(err);
             } 
         },
-        onCancel() {
-            this.initDialoginfo();
-            this.isCreate = false;
-        }
     },
 }
 </script>
@@ -152,13 +66,5 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-    .partyinfo-content {        
-        width: 100%;
-        text-align: center;
-        
-    }
-    .dialog-body {
-        margin-top: 20px;
     }
 </style>
