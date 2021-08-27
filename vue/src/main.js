@@ -6,6 +6,7 @@ import App from './App.vue'
 
 import Contacts from './page/contacts/main.vue';
 import Message from './page/message/message.vue';
+import External from './page/external/index.vue';
 import Intro from './page/intro/intro.vue';
 import Media from './page/media/media.vue';
 import Robot from './page/robot/robot.vue';
@@ -55,6 +56,18 @@ new Vue({
       content: {
         title: '消息推送',
         desc: '企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。'
+      }
+    },
+    {
+      name: 'external',
+      path: '/external',
+      components: {
+        default: External,
+        title: Title
+      },
+      content: {
+        title: '客户联系',
+        desc: '企业内的员工可以添加外部企业的联系人进行工作沟通，外部联系人分为企业微信联系人和微信联系人两种类型。配置了客户联系功能的成员所添加的外部联系人为企业客户。'
       }
     },
     {
