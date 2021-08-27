@@ -3,8 +3,9 @@
         <div class="block" style="padding:60px;">
             <div class="block-content">
                 <el-form ref="form" label-width="120px"  style="width:600px;">
-                    <el-form-item label="机器人 Webhook">
-                        <el-input ></el-input>
+                    <el-form-item v-model="webhook"
+                         label="机器人 Webhook">
+                        <el-input placeholder="不填则默认使用 main.config.js 中的配置"></el-input>
                     </el-form-item>
                     <el-form-item label="消息类型">
                         <el-select v-model="form.msgtype" placeholder="请选择类型">
@@ -12,7 +13,6 @@
                             <el-option label="markdown" value="markdown"></el-option>
                             <el-option label="图片" value="image"></el-option>
                             <el-option label="文件" value="file"></el-option>
-                            <el-option label="图文" value="news"></el-option>
                         </el-select>
                     </el-form-item>
                     
@@ -39,10 +39,10 @@
                         <el-upload
                             class="upload-demo"                    
                             :multiple='false'
-                            :data="{type:this.form.msgtype}"
-                            action="api/media/upload"
+                            action="api/robot/upload"
+                            :data="upload_data"
                             :on-success="eventUploadSuccess"                    
-                            name="media">
+                            name="file">
                             <el-button size="small" type="primary">点击上传</el-button>
                             <div class="el-upload__tip" slot="tip">单个文件不超过 20MB</div>
                         </el-upload>
@@ -84,6 +84,15 @@ export default {
                 file:{
                     media_id:''
                 }
+            },
+            webhook:'',
+            
+        }
+    },
+    computed:{
+        upload_data(){
+            return {
+                webhook:this.webhook||''
             }
         }
     },
@@ -92,7 +101,8 @@ export default {
 
             console.log(this.form);
             try{
-                let {data:{errcode,errmsg}} = await post('api/robot/send',{            
+                let {data:{errcode,errmsg}} = await post('api/robot/send',{          
+                    webhook:this.webhook,  
                     form:this.form
                 });
                 if(errcode == '0'){
