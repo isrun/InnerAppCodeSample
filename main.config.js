@@ -1,8 +1,8 @@
 module.exports = {
-    corpid:'ww827c549fa062654e',
+    corpid:'YOUR_CORP_ID',
     secret:{
-        common: '***REMOVED***',
-        contact: '***REMOVED***'
+        common: 'YOUR_APP_SECRET',
+        contact: 'YOUR_CONTACT_SECRET'
     },
-    robot:'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=c3f73dde-bac6-46ad-8047-06dde1c001c8',
+    robot:'YOUR_ROBOT_WEBHOOK_URL',
 }
