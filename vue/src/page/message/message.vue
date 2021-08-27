@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="block" style="padding:60px;">
-        <el-form ref="form" :model="form" label-width="80px" style="width:450px;">
+        <el-form ref="form" :model="form" label-width="120px"  style="width:600px;">
             <el-form-item label="消息类型">
                 <el-select v-model="form.msgtype" placeholder="请选择消息类型">
                 <el-option label="文本消息" value="text"></el-option>

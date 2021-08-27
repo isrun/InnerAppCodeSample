@@ -3,7 +3,7 @@
 
         <div class="block" style="padding:60px;">
             <div class="block-content">
-                <el-form ref="form" label-width="80px"  style="width:450px;">
+                <el-form ref="form" label-width="120px"  style="width:600px;">
                     <el-form-item label="素材类型">
                         <el-select v-model="params.type" placeholder="请选择临时素材类型" @change="eventTypeChange">
                             <el-option label="图片" value="image"></el-option>
