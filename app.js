@@ -30,8 +30,9 @@ app.use(function(req, res, next) {
   console.log(`\ncurrent request CGI is: ${req.url}`);
   console.log(`query: ${JSON.stringify(req.query)}`);
   console.log(`params: ${JSON.stringify(req.params)}`);
+  console.log(`body: ${JSON.stringify(req.body)}`);
   res.send = function(data) {
-    console.log(`${JSON.stringify(data)}\n`);
+    console.log(`return data: ${JSON.stringify(data)}\n`);
     send.call(this, data);
   }
   next();

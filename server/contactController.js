@@ -1,6 +1,6 @@
 const axios = require('axios');
 const config = require('../main.config');
-const AccessToken = require('./accesstoken')(config.address.secret);
+const AccessToken = require('./accesstoken')('contact');
 
 module.exports = function(router) {
     router.get('/user/get', async function (req, res, next) {
