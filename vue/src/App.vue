@@ -7,10 +7,9 @@
           class="navigation el-menu-demo" 
           mode="horizontal" 
           >
-            <el-menu-item index="1">开发者中心</el-menu-item>
-            <el-menu-item index="2">开发文档</el-menu-item>
-            <el-menu-item index="3">开发者工具</el-menu-item>
-            <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">Github</a></el-menu-item>
+            <el-menu-item index="1"><a href="https://open.work.weixin.qq.com/developer/portal" target="_blank">开发者中心</a></el-menu-item>
+            <el-menu-item index="2"><a href="https://work.weixin.qq.com/api/doc/" target="_blank">开发文档</a></el-menu-item>
+            <el-menu-item index="4"><a href="https://github.com/WecomTeam/CodeSameples" target="_blank">Github</a></el-menu-item>
           </el-menu>
       </el-header>
       <el-container>

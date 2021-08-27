@@ -5,15 +5,10 @@ const Config = require('../main.config');
 function getQueryVariable(url) {
     let query = url.split('?')[1];
     let theRequest = new Object();
-    console.log(query);
-
     strs = query.split("&");
     for (let i = 0; i < strs.length; i++) {
         theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
     }
-
-    console.log(theRequest);
-
     return theRequest;
 }
 
