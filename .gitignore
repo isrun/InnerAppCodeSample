@@ -102,6 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
-/main.config.js
+main.config.js
 .DS_Store
-/cache/token.json
+cache/token.json
