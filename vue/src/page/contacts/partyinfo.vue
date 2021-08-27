@@ -82,11 +82,11 @@ export default {
         onCreateUser() {
             this.currentType = 'user';
             this.isCreate = true;
+            this.userinfo.department = [this.partyid];
         },
         onCreateParty() {
             this.currentType = 'department';
             this.isCreate = true;
-            this.userinfo.department = [this.partyid];
         },
         async onConfirm() {
             this.isCreate = false;
