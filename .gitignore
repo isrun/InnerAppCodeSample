@@ -104,5 +104,4 @@ dist
 .tern-port
 /main.config.js
 .DS_Store
-# cache
-cache
+/cache/token.json
