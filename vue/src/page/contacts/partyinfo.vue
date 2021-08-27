@@ -20,11 +20,25 @@
             </el-option>
             </el-select>
             <div class="dialog-body">
-                <ContactsPicker
+                <div
                 v-if="currentType === 'user'"
-                mode="user"
-                @onContactsChanged='eventUsersChanged'
-                ></ContactsPicker>
+                class="dialog-userinfo-wrapper"
+                >
+                <el-form ref="form" :model="userinfo" label-width="80px">
+                    <el-form-item label="userid">
+                        <el-input v-model="userinfo.userid"></el-input>
+                    </el-form-item>
+                    <el-form-item label="姓名">
+                        <el-input v-model="userinfo.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机号">
+                        <el-input v-model="userinfo.mobile"></el-input>
+                    </el-form-item>
+                    <el-form-item label="邮箱">
+                        <el-input v-model="userinfo.email"></el-input>
+                    </el-form-item>
+                </el-form>
+                </div>
                 <el-input 
                     v-if="currentType === 'department'" 
                     v-model="partyname" 
@@ -39,12 +53,15 @@
     </div>
 </template>
 <script>
+const initUserInfo = {
+    userid: '',
+    name: '',
+    department: [],
+    mobile: '',
+    email: ''
+}
 import { post, get } from 'axios';
-import ContactsPicker from '../../components/contactsPicker.vue';
 export default {
-    components: {
-        ContactsPicker
-    },
     props: {
         partyid: Number
     },
@@ -59,37 +76,44 @@ export default {
                 value: 'user',
                 label: '成员'
             }],
-            currentType: ''
+            currentType: '',
+            userinfo: Object.assign({}, initUserInfo)
         }
     },
     methods: {
-        eventUsersChanged(data) {
-            console.log(data);
+        initDialoginfo() {
+            this.currentType = '';
+            this.partyname = '新建部门';
+            this.userinfo = Object.assign({}, initUserInfo);
         },
         onCreate() {
             this.isCreate = true;
+            this.userinfo.department = [this.partyid];
         },
         async onConfirm() {
-            this.partyname = '新建部门';
             this.isCreate = false;
             if(this.currentType === 'department') {
                 await post('api/department/create', {
-                params:{
                     parentid: this.partyid,
                     name: this.partyname
-                }
-            });
+                });
+            }else if(this.currentType === 'user') {
+                await post('api/user/create', {
+                    ...this.userinfo
+                });
             }
             window.location.reload();
+            this.initDialoginfo();
         },
         async onDelete() {
+            this.initDialoginfo();
             try {
-                const result = await this.$confirm('确认是否删除该部门？（注：不能删除根部门；不能删除含有子部门、成员的部门）', '提示', {
+                await this.$confirm('确认是否删除该部门？（注：不能删除根部门；不能删除含有子部门、成员的部门）', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 })
-                console.log(result);
+
                 try {
                 const  {data: { errcode }} = await get('api/department/delete', {
                     params:{
@@ -115,7 +139,7 @@ export default {
             } 
         },
         onCancel() {
-            this.currentType = '';
+            this.initDialoginfo();
             this.isCreate = false;
         }
     },

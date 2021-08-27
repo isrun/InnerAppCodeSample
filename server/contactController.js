@@ -27,6 +27,20 @@ module.exports = function(router) {
         res.send(data);
     });
     
+    router.post('/user/create', async function(req, res) {
+        const {department, name, mobile, email, userid} = req.body || {};
+        const access_token = await AccessToken.getToken();
+        const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=${access_token}`, 
+        {
+            department,
+            name,
+            mobile,
+            email,
+            userid
+        });
+        res.send(data);
+    });
+
     router.get('/department/list', async function (req, res, next) {
         const query = req.query || {};
         if (!query.id) {
@@ -94,12 +108,12 @@ module.exports = function(router) {
     });
     
     router.post('/department/create', async function(req, res) {
-        const {params:form_params} = req.body || {};
+        const {parentid, name} = req.body || {};
         const access_token = await AccessToken.getToken();
         const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=${access_token}`, 
         {
-            parentid: form_params.parentid,
-            name: form_params.name
+            parentid,
+            name
         });
         res.send(data);
     });
