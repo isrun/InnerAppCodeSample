@@ -13,7 +13,7 @@ let AccessToken = function(secretType) {
         async getToken () {
             let token = {};
             try {
-                token = JSON.parse(fs.readFileSync(path.join(__dirname, '../cache/token.json'), {
+                token = JSON.parse(fs.readFileSync(path.join(__dirname, '../token.json'), {
                     encoding: 'utf-8',
                 }));
             } catch(err) {
@@ -36,7 +36,7 @@ let AccessToken = function(secretType) {
                 token[temp].create_time = Math.floor(Date.now() / 1000);
                 token[temp].expire_time = expires_in;
                 token[temp].token = access_token;
-                fs.writeFileSync(path.join(__dirname, '../cache/token.json'), JSON.stringify(token), {
+                fs.writeFileSync(path.join(__dirname, '../token.json'), JSON.stringify(token), {
                     encoding: 'utf-8'
                 });
                 console.log('-----------------------');
