@@ -18,7 +18,7 @@ module.exports = function(router) {
     router.get('/user/delete', async function (req, res, next) {
         const query = req.query || {};
         const access_token = await AccessToken.getToken();
-        const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/get', {
+        const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/delete', {
             params: {
                 access_token,
                 userid: query.userid
@@ -30,7 +30,7 @@ module.exports = function(router) {
     router.post('/user/create', async function(req, res) {
         const {department, name, mobile, email, userid} = req.body || {};
         const access_token = await AccessToken.getToken();
-        const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=${access_token}`, 
+        const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=${access_token}&debug=1`, 
         {
             department,
             name,

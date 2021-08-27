@@ -99,7 +99,7 @@ export default {
                     type: 'success',
                     message: '删除成功!'
                 });
-                setTimeout(window.location.reload, 1000);
+                setTimeout(() => window.location.reload(), 1000);
                 } catch(err) {
                     this.$message({
                         type: 'error',
