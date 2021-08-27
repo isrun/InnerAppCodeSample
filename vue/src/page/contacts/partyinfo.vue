@@ -3,22 +3,15 @@
         <div class="partyinfo-banner">
             <div class="partyinfo-title">部门详情</div>                 
             <div class="">
-                <el-link style="margin-right:10px;" type="primary" size="mini" @click="onCreate">新增</el-link>
                 <el-link type="danger" size="mini" @click="onDelete">删除</el-link>
             </div>
         </div>
         <div class="partyinfo-content">
             <slot></slot>
+            <el-button @click="onCreateUser">新建成员</el-button>
+            <el-button type="primary" @click="onCreateParty">新建部门</el-button>
         </div>
         <el-dialog title="创建" :visible="isCreate">
-            <el-select v-model="currentType" placeholder="请选择新建类型">
-            <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-            </el-select>
             <div class="dialog-body">
                 <div
                 v-if="currentType === 'user'"
@@ -86,7 +79,12 @@ export default {
             this.partyname = '新建部门';
             this.userinfo = Object.assign({}, initUserInfo);
         },
-        onCreate() {
+        onCreateUser() {
+            this.currentType = 'user';
+            this.isCreate = true;
+        },
+        onCreateParty() {
+            this.currentType = 'department';
             this.isCreate = true;
             this.userinfo.department = [this.partyid];
         },
@@ -155,10 +153,10 @@ export default {
         align-items: center;
     }
     .partyinfo-content {
-        height: calc(680px - 57px);
+        height: 300px;
         width: 100%;
         text-align: center;
-        line-height: calc(680px - 57px);
+        line-height: 300px;
     }
     .dialog-body {
         margin-top: 20px;

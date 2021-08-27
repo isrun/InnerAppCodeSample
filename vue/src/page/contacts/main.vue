@@ -14,7 +14,7 @@
             <Partyinfo v-if="partyid" :partyid="partyid">
                 <div class="content_desc">{{partyName}}</div>
             </Partyinfo>
-            <div v-if="!(userid||partyid)" class="content_desc">组织架构树</div>
+            <div v-if="!(userid||partyid)" class="content_desc default">组织架构树</div>
          </div>
     </div>
 </template>
@@ -90,8 +90,10 @@ export default {
     width: 100%;
     font-size: 48px;
     text-align: center;
-    line-height: 623px;
     color: #333;
+}
+.content_desc.default {
+    line-height: 623px;
 }
 
 .node-item{
