@@ -12,9 +12,9 @@
             :userid="userid">
             </Userprofile>
             <Partyinfo v-if="partyid" :partyid="partyid">
-                <div class="content_desc">{{partyName}}</div>
+                <div class="content_desc"><el-icon class="party-icon el-icon-folder"></el-icon>{{partyName}}</div>
             </Partyinfo>
-            <div v-if="!(userid||partyid)" class="content_desc default">通讯录管理</div>
+            <div v-if="!(userid||partyid)" class="content_desc default"><el-icon class="party-icon  el-icon-folder"></el-icon>通讯录管理</div>
          </div>
     </div>
 </template>
@@ -88,14 +88,20 @@ export default {
 }
 .content_desc {
     width: 100%;
-    font-size: 48px;
+    padding-top:120px;
+    font-size: 28px;
+    font-weight: 400;
     text-align: center;
     color: #333;
+    margin-bottom: 30px;
 }
-.content_desc.default {
-    line-height: 623px;
+.content_desc.default {    
 }
 
+.party-icon {
+    /* font-size: 24px; */
+    margin-right: 5px;;
+}
 .node-item{
     color:#555;
     padding:2px 0;

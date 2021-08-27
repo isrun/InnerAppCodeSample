@@ -11,7 +11,7 @@
             <el-button size="small"  type="primary" @click="onCreateUser">新建成员</el-button>
             <el-button size="small" @click="onCreateParty">新建部门</el-button>
         </div>
-        <el-dialog title="创建" :visible="isCreate">
+        <el-dialog width="600px" title="新建" :visible="isCreate">
             <div class="dialog-body">
                 <div
                 v-if="currentType === 'user'"
@@ -39,8 +39,9 @@
                 </el-input>
             </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="onCancel">取 消</el-button>
-                <el-button type="primary" @click="onConfirm">确 定</el-button>
+                
+                <el-button size="small" type="primary" @click="onConfirm">确定</el-button>
+                <el-button size="small" @click="onCancel">取消</el-button>
             </span>
         </el-dialog>
     </div>
@@ -152,11 +153,10 @@ export default {
         justify-content: space-between;
         align-items: center;
     }
-    .partyinfo-content {
-        height: 300px;
+    .partyinfo-content {        
         width: 100%;
         text-align: center;
-        line-height: 300px;
+        
     }
     .dialog-body {
         margin-top: 20px;
