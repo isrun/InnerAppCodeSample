@@ -43,7 +43,7 @@ new Vue({
       },
       content: {
         title: '概览',
-        desc: '这里是概览'
+        desc: '欢迎使用企业微信开放 Api 示例代码'
       }
     },
     {

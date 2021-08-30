@@ -92,10 +92,10 @@ export default {
     height: 680px;
 }
 .content_desc {
-    height: 300px;
+    
     width: 100%;
     text-align: center;
-    line-height: 300px;
+    
     font-size: 48px;
     color: #333;
     margin-bottom: 30px;
@@ -104,8 +104,7 @@ export default {
     font-weight: 400;
 }
 .content_desc.default {
-    height: 400px;
-    line-height: 400px;
+
 }
 
 .party-icon {

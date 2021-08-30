@@ -7,7 +7,7 @@
         ></ContactsTree>
          </div>
          <div class="content">
-            <div v-if="!userid" class="content_desc">客户联系</div>
+            <div v-if="!userid" class="content_desc"><i class="el-icon-service"></i>客户联系</div>
             <ExternalList v-else :userData="userData"></ExternalList>
          </div>
     </div>
@@ -62,10 +62,11 @@ export default {
     height: 680px;
 }
 .content_desc {
+    margin-bottom: 30px;
+    padding-top: 120px;
     width: 100%;
-    font-size: 48px;
-    text-align: center;
-    line-height: 623px;
+    font-size: 28px;
+    text-align: center;    
     color: #333;
 }
 </style>
