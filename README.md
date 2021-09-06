@@ -33,9 +33,7 @@ module.exports = {
         contact: 'YOUR_CONTACT_SECRET',
 		// 外部联系人管理secret
         external: 'YOUR_EXTERNAL_CONTACT_SECRET'
-    },
-    // 对应群聊机器人的 Webhook URL
-    robot:'YOUR_ROBOT_WEBHOOK_URL',
+    }
 }
 ```
 

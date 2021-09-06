@@ -5,6 +5,5 @@ module.exports = {
         contact: 'YOUR_CONTACT_SECRET',
         external: 'YOUR_EXTERNAL_CONTACT_SECRET'
     },
-    robot:'YOUR_ROBOT_WEBHOOK_URL',
     agentid:'YOUR_AGENT_ID'
 }

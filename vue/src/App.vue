@@ -34,11 +34,6 @@
                 <i class="el-icon-service"></i>
                 <span slot="title">客户联系</span>
               </el-menu-item>
-              
-              <el-menu-item index="robot">
-                <i class="el-icon-coordinate"></i>
-                <span slot="title">群机器人</span>
-              </el-menu-item>
               <el-menu-item index="qrscan">
                 <i class="el-icon-mobile"></i>
                 <span slot="title">扫码登录</span>
@@ -145,5 +140,8 @@ html,body{
 }
 .el-tree-node__content{
   height:28px;
+}
+.el-textarea__inner{
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>

@@ -3,14 +3,14 @@
 
         <div class="block" style="padding:60px;">
             <div class="block-content">
-                <el-form ref="form" label-width="120px"  style="width:600px;">
+                <el-form ref="form" label-width="120px"  style="width:700px;">
                     <el-form-item label="素材类型">
-                        <el-select v-model="params.type" placeholder="请选择临时素材类型" @change="eventTypeChange">
-                            <el-option label="图片" value="image"></el-option>
-                            <el-option label="语音" value="voice"></el-option>
-                            <el-option label="视频" value="video"></el-option>
-                            <el-option label="文件" value="file"></el-option>
-                        </el-select>
+                        <el-radio-group v-model="params.type" size="small">                            
+                            <el-radio-button label="image">图片</el-radio-button>
+                            <el-radio-button label="voice">语音</el-radio-button>
+                            <el-radio-button label="video">视频</el-radio-button>
+                            <el-radio-button label="file">文件</el-radio-button>
+                        </el-radio-group>
                     </el-form-item>
                     
                     <el-form-item label="上传素材">

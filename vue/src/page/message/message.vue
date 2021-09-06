@@ -1,17 +1,18 @@
 <template>
 <div>
     <div class="block" style="padding:60px;">
-        <el-form ref="form" :model="form" label-width="120px"  style="width:600px;">
+        <el-form ref="form" :model="form" label-width="120px"  style="width:700px;">
             <el-form-item label="消息类型">
-                <el-select v-model="form.msgtype" placeholder="请选择消息类型">
-                <el-option label="文本消息" value="text"></el-option>
-                <el-option label="图文消息" value="image"></el-option>
-                <el-option label="语音消息" value="voice"></el-option>
-                <el-option label="视频消息" value="video"></el-option>
-                <el-option label="文件消息" value="file"></el-option>
-                <el-option label="文本卡片消息" value="textcard"></el-option>
-                <el-option label="Markdown 消息" value="markdown"></el-option>
-                </el-select>
+                <el-radio-group v-model="form.msgtype" size="small">
+                    <el-radio-button label="text">文本</el-radio-button>
+                    <el-radio-button label="image" >图文</el-radio-button>
+                    <el-radio-button label="voice">语音</el-radio-button>
+                    <el-radio-button label="video">视频</el-radio-button>
+                    <el-radio-button label="file">文件</el-radio-button>
+                    <el-radio-button label="textcard">文本卡片</el-radio-button>
+                    <el-radio-button label="markdown">Markdown</el-radio-button>
+                </el-radio-group>
+                
             </el-form-item>
             <el-form-item label="接收成员">                
                 <ContactsPicker
@@ -47,7 +48,7 @@
                     action="api/media/upload"
                     :on-success="eventUploadSuccess"                    
                     name="media">
-                    <el-button size="small" type="primary">点击上传</el-button>
+                    <el-button size="small" type="plain">点击上传</el-button>
                     <div class="el-upload__tip" slot="tip">单个图片不超过 2MB，支持JPG,PNG格式</div>
                 </el-upload>
             </el-form-item>
@@ -59,7 +60,7 @@
                     action="api/media/upload"
                     :on-success="eventUploadSuccess"                    
                     name="media">
-                    <el-button size="small" type="primary">点击上传</el-button>
+                    <el-button size="small" type="plain">点击上传</el-button>
                     <div class="el-upload__tip" slot="tip">单个文件不超过 2MB，播放长度不超过60s，仅支持AMR格式</div>
                 </el-upload>
             </el-form-item>
@@ -71,7 +72,7 @@
                     action="api/media/upload"
                     :on-success="eventUploadSuccess"                    
                     name="media">
-                    <el-button size="small" type="primary">点击上传</el-button>
+                    <el-button size="small" type="plain">点击上传</el-button>
                     <div class="el-upload__tip" slot="tip">单个文件不超过 10MB，支持MP4格式</div>
                 </el-upload>
             </el-form-item>
@@ -83,7 +84,7 @@
                     action="api/media/upload"
                     :on-success="eventUploadSuccess"                    
                     name="media">
-                    <el-button size="small" type="primary">点击上传</el-button>
+                    <el-button size="small" type="plain">点击上传</el-button>
                     <div class="el-upload__tip" slot="tip">单个文件不超过 20MB</div>
                 </el-upload>
             </el-form-item>
