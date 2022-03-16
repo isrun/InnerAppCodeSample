@@ -49,6 +49,16 @@ npm install
 yarn i
 ```
 
+## 构建前端工程
+
+在已下载的示例代码项目根目录下，执行以下代码完成前端项目构建：
+```bash
+# with npm
+npm run build
+# with yarn
+yarn build
+```
+
 ## 启动服务
 
 执行以下命令，启动后端服务
@@ -64,4 +74,4 @@ yarn  start
 
 在浏览器中访问 http://localhost:3000/#/ 检查服务是否启动成功。显示如下页面表示启动成功。
 
-![](https://wework.qpic.cn/wwpic/146295_LOOQ6mBuQXCIATH_1630067089/0)
+![](https://wwcdn.weixin.qq.com/node/wework/images/202203161326.1f878d69ec.png)
