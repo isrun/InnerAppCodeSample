@@ -1,6 +1,6 @@
 const axios = require('axios');
-const AccessToken = require('./accesstoken')();
-const Config = require('../main.config');
+const AccessToken = require('./accesstoken');
+const Config = require('../configs/main.config');
 
 module.exports = function(router) {
     // 发送推送消息
@@ -10,11 +10,11 @@ module.exports = function(router) {
         // 将 agentid 拼入请求的结构体中
         let request_data  = {
             ...form_parames,
-            agentid:Config.agentid,
+            agentid:Config.agent_id,
         };
         request_data.safe = form_parames.safe ? '1' : '0';
         // 获取 Access Token
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getAppToken();
         // 向消息推送的 Api 发送对应的数据结构体
         const {data} =  await axios.post('https://qyapi.weixin.qq.com/cgi-bin/message/send', 
         request_data,

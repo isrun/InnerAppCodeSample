@@ -1,5 +1,5 @@
 <template>
-    <el-tree      
+    <el-tree
         lazy
         :load="eventLoadNode"
         :props ="props"

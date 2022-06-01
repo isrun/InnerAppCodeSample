@@ -1,10 +1,17 @@
 const axios = require('axios');
-const AccessToken = require('./accesstoken')('contact');
+const AccessToken = require('./accesstoken');
 
 module.exports = function(router) {
+    router.get('/user/i', async function (req, res, next) {
+        let user =  {};
+        if(req.session.user){
+            user = req.session.user
+        }
+        res.send(user);
+    });
     router.get('/user/get', async function (req, res, next) {
         const query = req.query || {};
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getContactToken();
         const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/get', {
             params: {
                 access_token,
@@ -16,7 +23,7 @@ module.exports = function(router) {
     
     router.get('/user/delete', async function (req, res, next) {
         const query = req.query || {};
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getContactToken();
         const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/delete', {
             params: {
                 access_token,
@@ -28,7 +35,7 @@ module.exports = function(router) {
     
     router.post('/user/create', async function(req, res) {
         const {department, name, mobile, email, userid} = req.body || {};
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getContactToken();
         const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=${access_token}&debug=1`, 
         {
             department,
@@ -45,7 +52,7 @@ module.exports = function(router) {
         if (!query.id) {
             query.id = 1;
         }
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getContactToken();
         
         let final_data = [];
         let filter_users = [];
@@ -108,7 +115,7 @@ module.exports = function(router) {
     
     router.post('/department/create', async function(req, res) {
         const {parentid, name} = req.body || {};
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getContactToken();
         const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=${access_token}`, 
         {
             parentid,
@@ -119,7 +126,7 @@ module.exports = function(router) {
 
     router.get('/department/delete', async function(req, res) {
         const {query:form_params} = req || {};
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getContactToken();
         const {data} =  await axios.get(`https://qyapi.weixin.qq.com/cgi-bin/department/delete`, 
         {
             params: {

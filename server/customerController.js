@@ -1,10 +1,10 @@
 const axios = require('axios');
-const AccessToken = require('./accesstoken')('external');
+const AccessToken = require('./accesstoken');
 
 module.exports = function(router) {
     router.get('/externalcontact/batch/get_by_user', async function (req, res, next) {
         const query = req.query || {};
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getCustomerToken();
         const { data: {
             external_contact_list
         } } = await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/externalcontact/batch/get_by_user?access_token=${access_token}`, {

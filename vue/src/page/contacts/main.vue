@@ -15,7 +15,7 @@
                 <div class="content_desc"><el-icon class="party-icon el-icon-folder"></el-icon>{{partyName}}</div>
             </Partyinfo>
             <template v-if="!(userid||partyid)">
-                <div  class="content_desc default"><el-icon class="party-icon  el-icon-folder"></el-icon>通讯录管理</div>
+                <div  class="content_desc default"><el-icon class="party-icon el-icon-folder"></el-icon>通讯录管理</div>
                 <CreateUserAndDepart></CreateUserAndDepart>
             </template>
          </div>
@@ -83,7 +83,7 @@ export default {
 }
 .tree{
         border: 1px solid #e9eaeb;
-        width:200px;
+        width:300px;
     }
 .content{
     flex: 1;

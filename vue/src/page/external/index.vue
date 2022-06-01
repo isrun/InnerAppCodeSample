@@ -7,7 +7,7 @@
         ></ContactsTree>
          </div>
          <div class="content">
-            <div v-if="!userid" class="content_desc"><i class="el-icon-service"></i>客户联系</div>
+            <div v-if="!userid" class="content_desc"><i class="el-icon-service"></i>客户管理</div>
             <ExternalList v-else :userData="userData"></ExternalList>
          </div>
     </div>
@@ -53,7 +53,7 @@ export default {
 }
 .tree{
         border: 1px solid #e9eaeb;
-        width:200px;
+        width:300px;
     }
 .content{
     flex: 1;

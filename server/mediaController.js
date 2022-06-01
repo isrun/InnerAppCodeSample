@@ -1,6 +1,6 @@
 const FormData = require('form-data');
 const axios = require('axios');
-const AccessToken = require('./accesstoken')();
+const AccessToken = require('./accesstoken');
 
 module.exports = function(router) {
     router.post('/media/upload', async function (req, res, next) {
@@ -9,7 +9,7 @@ module.exports = function(router) {
         console.log(req.files);
         
         let {type} = req.body || {} ;
-        const access_token = await AccessToken.getToken();
+        const access_token = await AccessToken.getAppToken();
     
         // 组件一个form，用来上传文件
         const form = new FormData();
