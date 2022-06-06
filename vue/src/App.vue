@@ -9,15 +9,16 @@
               <template v-if="user.userid">
               <img class="header-profile-avatar" :src="user.avatar" /><label class="header-profile-name">{{user.name}}</label>
               </template>
-              <template v-else>登录</template>
             </div>
           </div>
       </el-header>
-      <el-container>
+      <el-container>                
+        <template v-if="user.userid">
         <el-aside width="200px">            
             <el-menu
               class="left-menu"
               :router="true"
+              default-active="intro"
               >
               <el-menu-item index="intro">
                 <i class="el-icon-monitor"></i>
@@ -39,6 +40,10 @@
                 <i class="el-icon-picture-outline"></i>
                 <span slot="title">素材管理</span>
               </el-menu-item>
+              <el-menu-item index="robot">
+                <i class="el-icon-picture-outline"></i>
+                <span slot="title">机器人</span>
+              </el-menu-item>
               
             </el-menu>
         </el-aside>
@@ -49,6 +54,11 @@
           </div>
           
         </el-main>
+        </template>
+        <template v-else>
+            <div class="qr_login" id="qr_login"></div>
+        </template>
+        
       </el-container>
     </el-container>
     
@@ -68,7 +78,19 @@ export default {
     },
     async mounted(){
         const {data} = await get('api/user/i');        
-        this.user = data;
+        window.settings = data;
+        this.user = window.settings.user
+
+        window.getQRCode({
+            "id": "qr_login",
+            "appid": window.settings.config.corp_id,
+            "agentid": window.settings.config.agent_id,
+            "redirect_uri": encodeURI('http://myapp.com:3000/app'),
+            "state": "hellowecom",
+            "href": "",
+            "lang": "zh",
+        });        
+        
     }
 }
 </script>
@@ -136,7 +158,9 @@ html,body{
   overflow: hidden;
   border-radius: 3px;
 }
-
+.qr_login{
+  margin:80px auto;
+}
 
 .left-menu{
   min-height: 100%;

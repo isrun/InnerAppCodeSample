@@ -9,11 +9,13 @@ import Message from './page/message/message.vue';
 import External from './page/external/index.vue';
 import Intro from './page/intro/intro.vue';
 import Media from './page/media/media.vue';
+import Robot from './page/robot/robot.vue';
 
 
 import vueRouter from 'vue-router';
 
 
+window.history.replaceState(null, null, window.location.pathname);
 
 Vue.config.productionTip = false;
 Vue.use(vueRouter);
@@ -21,7 +23,12 @@ Vue.use(ElementUI);
 
 new Vue({
   router: new vueRouter({
-    routes: [{
+    routes: [
+      {
+        path: '/',
+        redirect: '/intro'
+      },
+    {
       name: 'contacts',
       path: '/contacts',
       components: {
@@ -54,6 +61,13 @@ new Vue({
       path: '/media',
       components: {
         default: Media
+      }
+    },
+    {
+      name: 'robot',
+      path: '/robot',
+      components: {
+        default: Robot
       }
     }
     

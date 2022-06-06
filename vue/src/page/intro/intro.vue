@@ -1,6 +1,10 @@
 <template>
-    <div>
-        Hello {{user.name}}
+    <div class="intro">
+        <h2>Hello !</h2>
+        <div style="display:flex;align-items:center;">
+            <img style="width: 32px;height:32px;border-radius:3px; margin-right: 5px;" :src="user.avatar" />
+            <label>{{user.name}}({{user.english_name}})</label>
+        </div>
     </div>    
 </template>
 
@@ -9,7 +13,7 @@
 export default {
     data(){
         return {
-            user:{}
+            user: window.settings.user
         }
     },
     async mounted(){
@@ -19,5 +23,7 @@ export default {
 </script>
 
 <style>
-
+.intro{
+    padding:60px;
+}
 </style>

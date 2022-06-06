@@ -1,5 +1,6 @@
 const axios = require('axios');
 const AccessToken = require('./accesstoken');
+const Config = require('../configs/main.config')
 
 module.exports = function(router) {
     router.get('/user/i', async function (req, res, next) {
@@ -7,7 +8,10 @@ module.exports = function(router) {
         if(req.session.user){
             user = req.session.user
         }
-        res.send(user);
+        res.send({
+            config:Config,
+            user
+        });
     });
     router.get('/user/get', async function (req, res, next) {
         const query = req.query || {};
