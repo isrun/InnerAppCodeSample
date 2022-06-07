@@ -15,11 +15,10 @@ module.exports = {
     // 授权后跳转 URL
     app_path:'/app',
 
-    // 通讯录管理
+    // 通讯录管理 secret
     contact_secret :'',
 
-    // 客户联系管理
-    customer_secret: ''
-
+    // 机器人 WebHook
+    robot_webhook:''
    
 }

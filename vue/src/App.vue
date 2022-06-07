@@ -31,11 +31,7 @@
               <el-menu-item index="message">
                 <i class="el-icon-message"></i>
                 <span slot="title">消息推送</span>
-              </el-menu-item>
-              <el-menu-item index="external">
-                <i class="el-icon-service"></i>
-                <span slot="title">客户管理</span>
-              </el-menu-item>              
+              </el-menu-item>                 
               <el-menu-item index="media">
                 <i class="el-icon-picture-outline"></i>
                 <span slot="title">素材管理</span>

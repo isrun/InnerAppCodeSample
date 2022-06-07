@@ -69,10 +69,6 @@ module.exports ={
     // 获取通讯录的 Token
     async getContactToken(){
         return await _getTokenWithType('contact');
-    },
-    // 获取客户联系的 Token
-    async getCustomerToken(){
-        return await _getTokenWithType('customer');
-    },
+    }
     
 } ;
