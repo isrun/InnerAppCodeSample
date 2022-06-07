@@ -129,7 +129,7 @@ npm run start
 
 ### 六、访问服务
 
-在浏览器中访问 http://localhost:3000/#/ 检查服务是否启动成功。显示如下页面表示启动成功。
+在浏览器中访问 http://localhost:3000/#/ 检查服务是否启动成功。
 <img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449" width="640" />
 
 ## 更多教程
