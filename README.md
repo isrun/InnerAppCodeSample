@@ -1,4 +1,6 @@
-本项目代码示例包含企业微信开放平台常用 Api 的使用示例，关于企业微信开发相关的内容，请参考企业微信官方[开发教程](https://developer.work.weixin.qq.com/tutorial/detail/44)。
+企业自建应用可以调用丰富的企业微信开放接口，对企业的通讯录、客户联系人、OA审批等数据进行管理，通过应用消息推送接口向成员、部门和标签推送各种类型的消息卡片，也可以方便地安装到企业成员的工作台，让成员便捷地进行访问和使用。
+
+本项目旨在用一个最小应用的形式，帮助开发者了解企业微信自建应用开发的基本流程和概念，本项目代码示例包含企业微信开放平台常用 Api 的使用示例。
 
 ## 功能介绍
 
@@ -129,5 +131,6 @@ npm run start
 在浏览器中访问 http://localhost:3000/#/ 检查服务是否启动成功。显示如下页面表示启动成功。
 ![image](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449)
 
-## 更多
-关于企业微信开发相关的内容，请参考企业微信官方 [开发教程](https://developer.work.weixin.qq.com/tutorial/detail/44)。
+## 更多教程
+关于企业微信企业自建应用开发相关的内容，请参考企业微信官方教程 [开发企业自建应用](https://developer.work.weixin.qq.com/tutorial/detail/44)，关于企业微信开发更多的教程和指引，请查看 [官方开发教程](https://developer.work.weixin.qq.com/tutorial/)。
+
