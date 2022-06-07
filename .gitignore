@@ -105,3 +105,4 @@ dist
 main.config.js
 .DS_Store
 token.json
+temp/tokens.json

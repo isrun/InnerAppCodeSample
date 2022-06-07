@@ -1,56 +1,74 @@
 const axios = require('axios');
-const Config = require('../main.config');
+const Config = require('../configs/main.config');
 const fs = require('fs');
 const path = require('path');
 
-let AccessToken = function(secretType) {
-    const temp = secretType || 'common';
-    return {
-        _isExpire(create_time, expire_time) {
-            const current = Math.floor(Date.now() / 1000);
-            return create_time + expire_time < current;
-        },
-        async getToken () {
-            let token = {};
-            try {
-                token = JSON.parse(fs.readFileSync(path.join(__dirname, '../token.json'), {
-                    encoding: 'utf-8',
-                }));
-            } catch(err) {
+// token 缓存文件存储位置
+const token_path = '../temp/tokens.json';
 
-            }
-            // return 'lXRg_-GSu_twnNQ78ipfy9M9FbrGbNCTvG83XGnfCu-OAb8vkv59ICud4VDcP8xZoz50yV71jU3_UsJ-peLju1RQjDidPeHalLYt1KwQiNfEy0nD22w_hFYMrsanXQKo162pvQ3aN6deZPAtNppb1-0yI_DM088udQq7wmyreEdnWPCQegAsCkzC7N5QJl-LapZv2VM5DbStQ6CzHj9cQw';
-            if(!token[temp] || this._isExpire(token[temp].create_time, token[temp].expire_time)) {
-                let corpid = Config.corpid;
-                let corpsecret = Config.secret[temp] || Config.secret.common;
-            
-                const {data: {
-                    access_token, expires_in
-                }} = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
-                    params: {
-                        corpid,
-                        corpsecret
-                    }
-                });
-                token[temp] = {};
-                token[temp].create_time = Math.floor(Date.now() / 1000);
-                token[temp].expire_time = expires_in;
-                token[temp].token = access_token;
-                fs.writeFileSync(path.join(__dirname, '../token.json'), JSON.stringify(token), {
-                    encoding: 'utf-8'
-                });
-                console.log('-----------------------');
-                console.log('Access Token OK!');
-                console.log(access_token);
-                console.log('-----------------------');
-                return access_token;
-            } else {
-                return token[temp].token;
-            }
+// 判断 token 是否过期
+let _isExpire = function (create_time, expire_time) {
+    const current = Math.floor(Date.now() / 1000);
+    return create_time + expire_time < current;
+}
 
-        }
+// 获取 token 
+let _getTokenWithType = async function (type) {
+    
+    let tokens = {};
+    let corp_id = Config.corp_id;
+    // 
+    if(!type){type = 'app'};
+    let secret = Config[`${type}_secret`];
+
+    // 先尝试从缓存中读取出token
+    try {
+        tokens = JSON.parse(fs.readFileSync(path.join(__dirname, token_path), {
+            encoding: 'utf-8',
+        }));
+    } catch (err) {
+        // 缓存文件读取失败
+        console.error(err)
     }
-};
+    
+    if (!tokens[type] || _isExpire(tokens[type].create_time, tokens[type].expire_time)) {
+        // 如果缓存中没有 token，或者 token 过期        
+        console.log(`重新获取 ${type} access_token`)
+        // 发起请求，获取 access_token
+        const { data: {
+            access_token, expires_in
+        } } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
+            params: {
+                corpid:corp_id,
+                corpsecret:secret
+            }
+        });
+        // 重新写入 access_token
+        tokens[type] = {};
+        tokens[type].create_time = Math.floor(Date.now() / 1000);
+        tokens[type].expire_time = expires_in;
+        tokens[type].token = access_token;
+        fs.writeFileSync(path.join(__dirname, token_path), JSON.stringify(tokens), {
+            encoding: 'utf-8'
+        });
+        // 返回 access_token
+        console.log(`获取 ${type} access_token 成功`,access_token);        
+        return access_token;
+    } else {
+        // 从缓存中读取
+        console.log(`从缓存中读取 ${type} access_token`, tokens[type].token);
+        return tokens[type].token;
+    }
+}
 
-
-module.exports = AccessToken;
+module.exports ={
+    // 获取普通应用的 Token
+    async getAppToken(){
+        return await _getTokenWithType('app');
+    },
+    // 获取通讯录的 Token
+    async getContactToken(){
+        return await _getTokenWithType('contact');
+    }
+    
+} ;

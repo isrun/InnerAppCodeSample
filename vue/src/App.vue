@@ -2,21 +2,23 @@
   <div class="app">
     <el-container class="wrap">
       <el-header class="header">
-          <h1 class="logo"><img src="./assets/logo.svg" /><span class="title">CodeSamples</span></h1>
-          <el-menu 
-          class="navigation el-menu-demo" 
-          mode="horizontal" 
-          >
-            <el-menu-item index="1"><a href="https://open.work.weixin.qq.com/developer/portal" target="_blank">开发者中心</a></el-menu-item>
-            <el-menu-item index="2"><a href="https://work.weixin.qq.com/api/doc/" target="_blank">开发文档</a></el-menu-item>
-            <el-menu-item index="4"><a href="https://github.com/WecomTeam/CodeSameples" target="_blank">Github</a></el-menu-item>
-          </el-menu>
+          <h1 class="logo"><img src="./assets/logo.svg" /><span class="title">自建应用代码示例</span></h1>          
+          <div class="header-right">
+            <div class="header-links"></div>
+            <div class="header-profile">
+              <template v-if="user.userid">
+              <img class="header-profile-avatar" :src="user.avatar" /><label class="header-profile-name">{{user.name}}</label>
+              </template>
+            </div>
+          </div>
       </el-header>
-      <el-container>
+      <el-container>                
+        <template v-if="user.userid">
         <el-aside width="200px">            
             <el-menu
               class="left-menu"
               :router="true"
+              default-active="intro"
               >
               <el-menu-item index="intro">
                 <i class="el-icon-monitor"></i>
@@ -29,18 +31,14 @@
               <el-menu-item index="message">
                 <i class="el-icon-message"></i>
                 <span slot="title">消息推送</span>
-              </el-menu-item>
-              <el-menu-item index="external">
-                <i class="el-icon-service"></i>
-                <span slot="title">客户联系</span>
-              </el-menu-item>
-              <el-menu-item index="qrscan">
-                <i class="el-icon-mobile"></i>
-                <span slot="title">扫码登录</span>
-              </el-menu-item>              
+              </el-menu-item>                 
               <el-menu-item index="media">
                 <i class="el-icon-picture-outline"></i>
                 <span slot="title">素材管理</span>
+              </el-menu-item>
+              <el-menu-item index="robot">
+                <i class="el-icon-picture-outline"></i>
+                <span slot="title">机器人</span>
               </el-menu-item>
               
             </el-menu>
@@ -52,6 +50,11 @@
           </div>
           
         </el-main>
+        </template>
+        <template v-else>
+            <div class="qr_login" id="qr_login"></div>
+        </template>
+        
       </el-container>
     </el-container>
     
@@ -61,8 +64,30 @@
 
 <script>
 
+import {get} from 'axios';
+
 export default {
-  name: 'App',
+  data(){
+        return {
+            user:{}
+        }
+    },
+    async mounted(){
+        const {data} = await get('api/user/i');        
+        window.settings = data;
+        this.user = window.settings.user
+
+        window.getQRCode({
+            "id": "qr_login",
+            "appid": window.settings.config.corp_id,
+            "agentid": window.settings.config.agent_id,
+            "redirect_uri": encodeURI('http://myapp.com:3000/app'),
+            "state": "hellowecom",
+            "href": "",
+            "lang": "zh",
+        });        
+        
+    }
 }
 </script>
 
@@ -73,10 +98,11 @@ export default {
 }
 html,body{
   height: 100%;
-  background:rgb(245, 245, 245);
+  background: #fff;
+  font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .app {
-  font-family:  Helvetica, Arial, sans-serif;
+  
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;;
@@ -114,17 +140,33 @@ html,body{
     letter-spacing: -0.5px;
     padding-left: 5px;
 }
+.header-right{
+
+}
+.header-profile{
+  display: flex;
+  align-items: center;
+}
+.header-profile-avatar{
+  width:36px;
+  height: 36px;
+  margin-right: 10px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.qr_login{
+  margin:80px auto;
+}
 
 .left-menu{
   min-height: 100%;
 }
-.content-body{
-  padding:60px;
+.content-body{  
   min-height: 680px;
 }
 .block{
     padding:20px;
-    border:1px solid rgb(220,220,220);
+    /* border:1px solid rgb(220,220,220); */
     background:#fff;
     min-height: 680px;
     overflow: auto;
@@ -134,7 +176,9 @@ html,body{
     line-height: 26px;
     margin-bottom: 20px;
 }
-
+.el-main{
+  background: #fff;
+}
 .el-tree-node{
   margin:3px 0;
 }
