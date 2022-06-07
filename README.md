@@ -10,31 +10,32 @@
 
 从企业微信工作台打开自建应用，通过 OAuth 获取登录用户基本信息，请参考开发教程 [如何获取登录用户信息](https://developer.work.weixin.qq.com/tutorial/detail/47)。
 
-![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_517763_Zla9Owky3FLlW4jK_1653637933?w=1280&h=958.6666666666666)
+<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_517763_Zla9Owky3FLlW4jK_1653637933?w=1280&h=958.6666666666666" width="640"  max-width="640" />
 
 ### 通讯录管理
 
 拉取通讯录组织架构树，动态拉取各级目录下的成员和部门，并展示对应的详细信息，请参考开发教程 [管理企业通讯录](https://developer.work.weixin.qq.com/tutorial/detail/55)。
 
-![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_483086_XCCVRIulitOOA2L9_1654069461?w=1280&h=904.2786069651742)
+<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_483086_XCCVRIulitOOA2L9_1654069461?w=1280&h=904.2786069651742" width="640"  max-width="640" />
 
 ### 消息推送
 
 使用应用消息接口，向成员、部门、标签发送消息，包括文本、图片、markdown、文件等消息类型，请参考 [发送应用消息](https://developer.work.weixin.qq.com/tutorial/detail/53)。
 
-![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_586102_b35VpwNR01n4yxgW_1653636916?w=1280&h=958.6666666666666)
+<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_586102_b35VpwNR01n4yxgW_1653636916?w=1280&h=958.6666666666666" width="640"  max-width="640" />
+
 
 ### 群机器人
 
 通过机器人向群聊内发送文本、MarkDown、图片、文件等类型的消息，请参考开发教程 [开发企业微信群机器人](https://developer.work.weixin.qq.com/tutorial/detail/54)。
 
-![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_198582_zXhZF2GLuadX4nGY_1654086622?w=1280&h=1051.5985130111524)
+<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_198582_zXhZF2GLuadX4nGY_1654086622?w=1280&h=1051.5985130111524" width="640"  max-width="640" />
 
 ### 使用手机扫码登录自建应用
 
 在企业微信客户端之外，通过企业微信手机扫码快捷登录企业网站，请参考开发教程 [使用手机扫码登录自建应用](https://developer.work.weixin.qq.com/tutorial/detail/56)。
 
-![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449)
+<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449" width="640"  max-width="640" />
 
 ### 素材管理
 
@@ -129,7 +130,7 @@ npm run start
 ### 六、访问服务
 
 在浏览器中访问 http://localhost:3000/#/ 检查服务是否启动成功。显示如下页面表示启动成功。
-![image](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449)
+<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449" width="640" />
 
 ## 更多教程
 关于企业微信企业自建应用开发相关的内容，请参考企业微信官方教程 [开发企业自建应用](https://developer.work.weixin.qq.com/tutorial/detail/44)，关于企业微信开发更多的教程和指引，请查看 [官方开发教程](https://developer.work.weixin.qq.com/tutorial/)。
