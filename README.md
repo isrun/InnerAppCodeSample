@@ -4,29 +4,39 @@
 
 本项目基于 `Express` 与 `VueCli` 构建，主要用于向开发演示企业微信自建应用的常见开发场景，主要功能包括：
 
-- 网页授权登录
+### 网页授权登录
 
-从企业微信工作台打开自建应用，通过 OAuth 获取登录用户基本信息，请参考 [如何获取登录用户信息](https://developer.work.weixin.qq.com/tutorial/detail/47)
+从企业微信工作台打开自建应用，通过 OAuth 获取登录用户基本信息，请参考开发教程 [如何获取登录用户信息](https://developer.work.weixin.qq.com/tutorial/detail/47)。
 
-- 通讯录管理
+![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_517763_Zla9Owky3FLlW4jK_1653637933?w=1280&h=958.6666666666666)
 
-拉取通讯录组织架构树，动态拉取各级目录下的成员和部门，并展示对应的详细信息，请参考 [管理企业通讯录](https://developer.work.weixin.qq.com/tutorial/detail/55)
+### 通讯录管理
 
-- 消息推送
+拉取通讯录组织架构树，动态拉取各级目录下的成员和部门，并展示对应的详细信息，请参考开发教程 [管理企业通讯录](https://developer.work.weixin.qq.com/tutorial/detail/55)。
 
-使用应用消息接口，向成员、部门、标签发送消息，包括文本、图片、markdown、文件等消息类型，请参考 [发送应用消息](https://developer.work.weixin.qq.com/tutorial/detail/53)
+![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_483086_XCCVRIulitOOA2L9_1654069461?w=1280&h=904.2786069651742)
 
-- 群机器人
+### 消息推送
 
-通过机器人向群聊内发送文本、MarkDown、图片、文件等类型的消息。[开发企业微信群机器人](https://developer.work.weixin.qq.com/tutorial/detail/54)
+使用应用消息接口，向成员、部门、标签发送消息，包括文本、图片、markdown、文件等消息类型，请参考 [发送应用消息](https://developer.work.weixin.qq.com/tutorial/detail/53)。
 
-- 使用手机扫码登录自建应用
+![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_586102_b35VpwNR01n4yxgW_1653636916?w=1280&h=958.6666666666666)
 
-在企业微信客户端之外，通过企业微信手机扫码快捷登录企业网站。 [使用手机扫码登录自建应用](https://developer.work.weixin.qq.com/tutorial/detail/56)
+### 群机器人
 
-- 素材管理
+通过机器人向群聊内发送文本、MarkDown、图片、文件等类型的消息，请参考开发教程 [开发企业微信群机器人](https://developer.work.weixin.qq.com/tutorial/detail/54)。
 
-使用素材管理接口，在使用对应素材前，预先上传图片、语音、视频、文件等类型的文件
+![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_198582_zXhZF2GLuadX4nGY_1654086622?w=1280&h=1051.5985130111524)
+
+### 使用手机扫码登录自建应用
+
+在企业微信客户端之外，通过企业微信手机扫码快捷登录企业网站，请参考开发教程 [使用手机扫码登录自建应用](https://developer.work.weixin.qq.com/tutorial/detail/56)。
+
+![](https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449)
+
+### 素材管理
+
+使用素材管理接口，在使用对应素材前，预先上传图片、语音、视频、文件等类型的文件。
 
 ## 项目说明
 
