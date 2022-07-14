@@ -127,8 +127,18 @@ npm run start
 
 ### 六、访问服务
 
+#### 在浏览器中访问
 在浏览器中访问 http://localhost:3000/#/ 检查服务是否启动成功。
 <img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449" width="640" />
+
+#### 在企业微信工作台中访问
+
+1. 应用主页配置为 `http://myapp.com:3000/home`
+2. 可信域名配置为 `myapp.com:3000`
+3. 修改本地host
+```
+127.0.0.1 myapp.com
+```
 
 ## 更多教程
 关于企业微信企业自建应用开发相关的内容，请参考企业微信官方教程 [开发企业自建应用](https://developer.work.weixin.qq.com/tutorial/detail/44)，关于企业微信开发更多的教程和指引，请查看 [官方开发教程](https://developer.work.weixin.qq.com/tutorial/)。
