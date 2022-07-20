@@ -62,13 +62,18 @@ module.exports = function(router) {
         let filter_users = [];
         let filter_departments = [];
     
-        const { data:{department:departmentlist} } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/department/list', {
+        const depart_response = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/department/list', {
             params: {
                 access_token,
                 id: query.id || ''
             }
         });
-    
+
+        console.log(depart_response);
+
+        const { data:{department:departmentlist} }  = depart_response;
+
+                   
         departmentlist.forEach(item => {
             if (item.parentid == query.id) {
                 filter_departments.push({

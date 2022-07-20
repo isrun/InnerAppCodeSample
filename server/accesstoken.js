@@ -31,29 +31,40 @@ let _getTokenWithType = async function (type) {
         console.error(err)
     }
     
-    if (!tokens[type] || _isExpire(tokens[type].create_time, tokens[type].expire_time)) {
+    if (!tokens[type]|| _isExpire(tokens[type].create_time, tokens[type].expire_time)) {
         // 如果缓存中没有 token，或者 token 过期        
         console.log(`重新获取 ${type} access_token`)
         // 发起请求，获取 access_token
-        const { data: {
-            access_token, expires_in
-        } } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
+        let access_response = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
             params: {
                 corpid:corp_id,
                 corpsecret:secret
             }
-        });
-        // 重新写入 access_token
-        tokens[type] = {};
-        tokens[type].create_time = Math.floor(Date.now() / 1000);
-        tokens[type].expire_time = expires_in;
-        tokens[type].token = access_token;
-        fs.writeFileSync(path.join(__dirname, token_path), JSON.stringify(tokens), {
-            encoding: 'utf-8'
-        });
-        // 返回 access_token
-        console.log(`获取 ${type} access_token 成功`,access_token);        
-        return access_token;
+        });       
+
+        let { data: {
+            access_token, expires_in
+        } } = access_response;
+        
+        if(access_token){
+            // 重新写入 access_token
+            tokens[type] = {};
+            tokens[type].create_time = Math.floor(Date.now() / 1000);
+            tokens[type].expire_time = expires_in;
+            tokens[type].token = access_token;
+            fs.writeFileSync(path.join(__dirname, token_path), JSON.stringify(tokens), {
+                encoding: 'utf-8'
+            });
+            // 返回 access_token
+            console.log(`获取 ${type} access_token 成功`,access_token);        
+            return access_token;
+        }
+        else{
+            console.log(`获取 ${type} access_token 失败`);
+            console.log(access_response);
+            return false;
+        }
+        
     } else {
         // 从缓存中读取
         console.log(`从缓存中读取 ${type} access_token`, tokens[type].token);
