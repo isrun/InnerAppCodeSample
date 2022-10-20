@@ -1,11 +1,14 @@
 <template>
     <div class="auth">
-        <h2 style="margin:1em 0">身份验证</h2>
+        <h2 style="margin:0 0 1em 0">身份验证</h2>
         <t-table stripe bordered row-key="title" :data="cells" :columns="columns" />
+
         <h2 style="margin:1em 0">网页授权登录<span style="font-weight:normal;font-size:13px;color:#555">（仅在企业微信中使用）</span></h2>        
         <div>
             <t-button theme="primary" @click="eventLogin" variant="base">登录跳转</t-button>
         </div>
+
+        
 
         <h2 style="margin:1em 0">扫码授权登录<span style="font-weight:normal;font-size:13px;color:#555">（仅在浏览器中使用）</span></h2>        
         <div>
@@ -22,35 +25,40 @@
 </template>
 
 <script>
-import { get } from 'axios';
-
-
 export default {
     data() {
         return {
             columns: [
                 {
                     colKey: 'title',
-                    title: 'Title',
-                    width: 200
+                    title: '字段',
+                    width: 150
                 },
                 {
                     colKey: 'value',
-                    title: 'Value'
+                    title: '值'
+                },
+                {
+                    colKey:'note',
+                    title:'说明',
+                    width:200
                 }
             ],
             cells: [],
             globalData: {},
+            isLogin:false,
             visible: false
         }
     },
     methods: {
         initData() {
             const globalData = this.globalData
+            this.isLogin = globalData.user?.user_id ? true : false;
             this.cells = [
                 {
-                    title: '网站根路径\n(须与可信域名一致)',
-                    value: globalData.config.site_base
+                    title: '网站根路径',
+                    value: globalData.config.site_base,
+                    note:'site_base, 须与可信域名一致'
                 },
                 // {
                 //     title: '应用主页',
@@ -58,8 +66,9 @@ export default {
                 // },
 
                 {
-                    title: '授权后跳转页面\n(在企业微信客户端中打开)',
-                    value: globalData.redirect_uri
+                    title: '授权后跳转页面',
+                    value: globalData.redirect_uri,
+                    note:'redirect_uri，在企业微信客户端中打开'
                 },
                 {
                     title: '网页授权连接',
@@ -86,9 +95,8 @@ export default {
             }, 100);
         }
     },
-    async mounted() {
-        const { data } = await get('api/config');
-        this.globalData = data;
+    async mounted() {        
+        this.globalData = window.globalData;        
         this.initData();
 
     }

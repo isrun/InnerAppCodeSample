@@ -1,6 +1,6 @@
 <template>
     <div class="block">
-        <h2 style="margin:1em 0">通讯录</h2>
+        <h2 style="margin:0 0 1em 0">通讯录</h2>
         <div class="contacts ">
         
         <div class="tree">

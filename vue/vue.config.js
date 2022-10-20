@@ -1,4 +1,8 @@
 module.exports = {
+  publicPath:'/vue',
+  // outputDir:'../vue-assets',
+  // assetsDir:'vue-assets',
+  indexPath:'index.ejs',
   devServer: {
     proxy: {
       '/api': {

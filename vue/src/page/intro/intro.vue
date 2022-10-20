@@ -1,6 +1,6 @@
 <template>
     <div class="intro">
-        <h2 style="margin:1em 0">基本信息</h2>
+        <h2 style="margin: 0 0 1em">基本信息</h2>
         <t-table
             stripe
             bordered
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import {get} from 'axios';
-
 
 export default {
     data(){
@@ -21,50 +19,56 @@ export default {
             columns:[
                 {
                     colKey:'title',
-                    title:'Title',
+                    title:'字段',
                     width:150
                 },
                 {
                     colKey:'value',
-                    title:'Value'
+                    title:'值'
+                },
+                {
+                    colKey:'note',
+                    title:'说明',
+                    width:150
                 }
             ],
             cells:[]
         }
     },
     methods:{
-        initData(){
-            const globalData = window.globalData             
-            this.cells = [
-                {
-                   title:'CorpID',
-                    value:globalData.config.corp_id
-                },
-                {
-                   title:'AgentID',
-                    value:globalData.config.agent_id
-                },
-
-                {
-                   title:'AppSecret',
-                    value:globalData.config.app_secret
-                },
-                {
-                   title:'AccessToken',
-                   value:globalData.access_token
-                },
-                {
-                   title:'ExpireTime',
-                   value:globalData.expire_time
-                },
-            ]
-        }
     },
 
     async mounted(){
-        const {data} = await get('api/config');        
-        window.globalData = data;
-        this.initData();
+        
+        
+        const globalData = window.globalData             
+            this.cells = [
+                {
+                   title:'CorpID',
+                    value:globalData.config.corp_id,
+                    note:'企业ID'
+                },
+                {
+                   title:'AgentID',
+                    value:globalData.config.agent_id,
+                    note:'应用ID'
+                },
+                {
+                   title:'AppSecret',
+                    value:globalData.config.app_secret,
+                    note:'应用secret'                    
+                },
+                {
+                   title:'AccessToken',
+                   value:globalData.access_token,
+                    note:'接口调用凭证'
+                },
+                {
+                   title:'ExpireTime',
+                   value:globalData.expire_time,
+                    note:'过期时间'
+                },
+            ]
     }
 }
 </script>

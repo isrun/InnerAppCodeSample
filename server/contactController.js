@@ -2,17 +2,7 @@ const axios = require('axios');
 const AccessToken = require('./accesstoken');
 const Config = require('../configs/main.config.js')
 
-module.exports = function(router) {
-    router.get('/user/i', async function (req, res, next) {
-        let user =  {};
-        if(req.session.user){
-            user = req.session.user
-        }
-        res.send({
-            config:Config,
-            user
-        });
-    });
+module.exports = function(router) {    
     router.get('/user/get', async function (req, res, next) {
         const query = req.query || {};
         const access_token = await AccessToken.getToken();
