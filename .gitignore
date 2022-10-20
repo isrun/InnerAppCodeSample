@@ -104,5 +104,4 @@ dist
 .tern-port
 main.config.js
 .DS_Store
-token.json
-temp/tokens.json
+scratch/

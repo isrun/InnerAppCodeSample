@@ -1,92 +1,68 @@
 <template>
   <div class="app">
-    <el-container class="wrap">
-      <el-header class="header">
-          <h1 class="logo"><img src="./assets/logo.svg" /><span class="title">自建应用代码示例</span></h1>          
-          <div class="header-right">
-            <div class="header-links"></div>
-            <div class="header-profile">
-              <template v-if="user.userid">
-              <img class="header-profile-avatar" :src="user.avatar" /><label class="header-profile-name">{{user.name}}</label>
-              </template>
+    <div class="tdesign-demo-item--layout" style="height:100%">
+    <t-layout style="height:100%">
+      <t-header style="border-bottom: 1px solid #eee">
+        <t-head-menu value="item1" height="120px">
+          <h1 class="logo"><img src="./assets/logo.svg" /><span class="title">自建应用代码示例</span></h1>                    
+        </t-head-menu>
+      </t-header>
+      <t-layout style="height:100%">
+        <t-aside>
+          <t-menu defaultValue="intro" theme="light" style="margin-right: 50px" height="550px" @change="eventMenuChange" >
+            <t-menu-item value="intro"> <t-icon slot="icon" name="home" />基本信息</t-menu-item>
+            <t-menu-item value="auth"> <t-icon slot="icon" name="user-circle" />身份验证</t-menu-item>
+            <t-menu-item value="contacts"> <t-icon slot="icon" name="usergroup" />通讯录</t-menu-item>
+            <t-menu-item value="message"> <t-icon slot="icon" name="logo-wecom" />消息推送</t-menu-item>
+            <t-menu-item value="media"> <t-icon slot="icon" name="image" />素材管理</t-menu-item>
+            <t-menu-item value="robot"> <t-icon slot="icon" name="app" />机器人</t-menu-item>
+          </t-menu>
+        </t-aside>
+        <t-layout style="border-left: 1px solid #eee;background: #fff;">
+          <t-content>
+            <div>
+              <router-view ></router-view>
             </div>
-          </div>
-      </el-header>
-      <el-container>                
-        <template v-if="user.userid">
-        <el-aside width="200px">            
-            <el-menu
-              class="left-menu"
-              :router="true"
-              default-active="intro"
-              >
-              <el-menu-item index="intro">
-                <i class="el-icon-monitor"></i>
-                <span slot="title">概览</span>
-              </el-menu-item>
-              <el-menu-item index="contacts">
-                <i class="el-icon-user"></i>
-                <span slot="title">通讯录管理</span>
-              </el-menu-item>
-              <el-menu-item index="message">
-                <i class="el-icon-message"></i>
-                <span slot="title">消息推送</span>
-              </el-menu-item>                 
-              <el-menu-item index="media">
-                <i class="el-icon-picture-outline"></i>
-                <span slot="title">素材管理</span>
-              </el-menu-item>
-              <el-menu-item index="robot">
-                <i class="el-icon-picture-outline"></i>
-                <span slot="title">机器人</span>
-              </el-menu-item>
-              
-            </el-menu>
-        </el-aside>
-        <el-main style="padding:0;">
-          <keep-alive><router-view name="title"></router-view></keep-alive>
-          <div class="content-body">
-            <router-view ></router-view>
-          </div>
-          
-        </el-main>
-        </template>
-        <template v-else>
-            <div class="qr_login" id="qr_login"></div>
-        </template>
-        
-      </el-container>
-    </el-container>
-    
+          </t-content>
+          <t-footer>Copyright @ 2019-{{ new Date().getFullYear() }} Tencent. All Rights Reserved</t-footer>
+        </t-layout>
+      </t-layout>
+    </t-layout>
+  </div>
     
   </div>
 </template>
 
 <script>
 
-import {get} from 'axios';
+// import {get} from 'axios';
 
 export default {
-  data(){
+    data(){
         return {
             user:{}
         }
     },
     async mounted(){
-        const {data} = await get('api/user/i');        
-        window.settings = data;
-        this.user = window.settings.user
-
-        window.getQRCode({
-            "id": "qr_login",
-            "appid": window.settings.config.corp_id,
-            "agentid": window.settings.config.agent_id,
-            "redirect_uri": encodeURI('http://myapp.com:3000/app'),
-            "state": "hellowecom",
-            "href": "",
-            "lang": "zh",
-        });        
+        // const {data} = await get('api/user/i');        
+        // window.data = data;
+        // window.onGlobalDataReady && window.onGlobalDataReady()
         
+        // window.getQRCode({
+        //     "id": "qr_login",
+        //     "appid": window.settings.config.corp_id,
+        //     "agentid": window.settings.config.agent_id,
+        //     "redirect_uri": encodeURI('http://myapp.com:3000/app'),
+        //     "state": "hellowecom",
+        //     "href": "",
+        //     "lang": "zh",
+        // });        
+        
+    },
+    methods:{
+      eventMenuChange(hash){
+        this.$router.push(`/${hash}`)
+      }
     }
 }
 </script>
@@ -165,8 +141,8 @@ html,body{
   min-height: 680px;
 }
 .block{
-    padding:20px;
-    /* border:1px solid rgb(220,220,220); */
+    padding:40px;
+    border-radius: 10px;    
     background:#fff;
     min-height: 680px;
     overflow: auto;

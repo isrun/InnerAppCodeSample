@@ -1,6 +1,6 @@
 const axios = require('axios');
 const AccessToken = require('./accesstoken');
-const Config = require('../configs/main.config')
+const Config = require('../configs/main.config.js')
 
 module.exports = function(router) {
     router.get('/user/i', async function (req, res, next) {
@@ -15,7 +15,7 @@ module.exports = function(router) {
     });
     router.get('/user/get', async function (req, res, next) {
         const query = req.query || {};
-        const access_token = await AccessToken.getContactToken();
+        const access_token = await AccessToken.getToken();
         const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/get', {
             params: {
                 access_token,
@@ -25,38 +25,14 @@ module.exports = function(router) {
         res.send(data);
     });
     
-    router.get('/user/delete', async function (req, res, next) {
-        const query = req.query || {};
-        const access_token = await AccessToken.getContactToken();
-        const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/user/delete', {
-            params: {
-                access_token,
-                userid: query.userid
-            }
-        });
-        res.send(data);
-    });
     
-    router.post('/user/create', async function(req, res) {
-        const {department, name, mobile, email, userid} = req.body || {};
-        const access_token = await AccessToken.getContactToken();
-        const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=${access_token}&debug=1`, 
-        {
-            department,
-            name,
-            mobile,
-            email,
-            userid
-        });
-        res.send(data);
-    });
 
     router.get('/department/list', async function (req, res, next) {
         const query = req.query || {};
         if (!query.id) {
             query.id = 1;
         }
-        const access_token = await AccessToken.getContactToken();
+        const access_token = await AccessToken.getToken();
         
         let final_data = [];
         let filter_users = [];
@@ -68,9 +44,6 @@ module.exports = function(router) {
                 id: query.id || ''
             }
         });
-
-        console.log(depart_response);
-
         const { data:{department:departmentlist} }  = depart_response;
 
                    
@@ -120,29 +93,6 @@ module.exports = function(router) {
         }
         final_data = [].concat(filter_users,filter_departments);
         res.send(final_data);
-    });
+    });   
     
-    router.post('/department/create', async function(req, res) {
-        const {parentid, name} = req.body || {};
-        const access_token = await AccessToken.getContactToken();
-        const {data} =  await axios.post(`https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=${access_token}`, 
-        {
-            parentid,
-            name
-        });
-        res.send(data);
-    });
-
-    router.get('/department/delete', async function(req, res) {
-        const {query:form_params} = req || {};
-        const access_token = await AccessToken.getContactToken();
-        const {data} =  await axios.get(`https://qyapi.weixin.qq.com/cgi-bin/department/delete`, 
-        {
-            params: {
-                id: form_params.id,
-                access_token
-            }
-        });
-        res.send(data);
-    });
 };

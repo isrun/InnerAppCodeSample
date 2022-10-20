@@ -2,13 +2,18 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 const axios = require('axios');
-const Config = require('../configs/main.config');
+const Config = require('../configs/main.config.js');
 const AccessToken = require('../server/accesstoken');
-const { corp_id } = require('../configs/main.config');
+const { corp_id } = require('../configs/main.config.js');
+
+
+
 
 router.get('/', function(req, res, next) {
   res.render('index');
 });
+
+
 
 router.get(Config.home_path, function(req, res, next) {
   const corp_id = Config.corp_id;
@@ -17,12 +22,10 @@ router.get(Config.home_path, function(req, res, next) {
   res.redirect(login_url);
 });
 
-router.get(Config.app_path,async function(req, res, next) {
-
-  
+router.get(Config.app_path,async function(req, res, next) {  
   let {code} = req.query;
   if(code){
-    let access_token = await AccessToken.getAppToken();
+    let access_token = await AccessToken.getToken();
     if(access_token){
       let {data:user_data} = await axios.get(`https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token=${access_token}&code=${code}`);
       console.log('获取 user_data 成功',user_data)
