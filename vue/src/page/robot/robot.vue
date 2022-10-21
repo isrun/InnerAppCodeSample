@@ -1,6 +1,7 @@
 <template>
   <div class="">
-        <div class="block" style="padding:60px;">
+        <div class="block" style="padding:40px;">
+            <h2 style="margin:0 0 1em 0">机器人</h2>
             <div class="block-content">
                 <el-form ref="form" label-width="120px"  style="width:600px;">                    
                     <el-form-item label="机器人 Webhook">

@@ -1,6 +1,7 @@
 <template>
 <div>
-    <div class="block" style="padding:60px;">
+    <div class="block" style="padding:40px;">
+        <h2 style="margin:0 0 1em 0">消息推送</h2>
         <el-form ref="form" :model="form" label-width="120px"  style="width:700px;">
             <el-form-item label="消息类型">
                 <el-radio-group v-model="form.msgtype" size="small">

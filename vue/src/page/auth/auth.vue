@@ -5,7 +5,8 @@
 
         <h2 style="margin:1em 0">网页授权登录<span style="font-weight:normal;font-size:13px;color:#555">（仅在企业微信中使用）</span></h2>        
         <div>
-            <t-button theme="primary" @click="eventLogin" variant="base">登录跳转</t-button>
+            <t-button theme="primary" @click="eventLoginBase" variant="base">静默授权登录</t-button>
+            <t-button theme="primary" @click="eventLoginPrivate" variant="base" style="margin-left:20px;">手动授权登录</t-button>
         </div>
 
         
@@ -13,7 +14,7 @@
         <h2 style="margin:1em 0">扫码授权登录<span style="font-weight:normal;font-size:13px;color:#555">（仅在浏览器中使用）</span></h2>        
         <div>
             <t-popup :visible="visible" placement="right" showArrow>
-                <t-button theme="primary" @click="eventQrLogin" variant="base">扫码跳转</t-button>
+                <t-button theme="primary" @click="eventQrLogin" variant="base">扫码登录</t-button>
                 <template #content>
                     <div slot="content" id="qr_login" style="padding:20px 0 10px"></div>
                 </template>
@@ -58,7 +59,7 @@ export default {
                 {
                     title: '网站根路径',
                     value: globalData.config.site_base,
-                    note:'site_base, 须与可信域名一致'
+                    note:'须与可信域名一致'
                 },
                 // {
                 //     title: '应用主页',
@@ -71,13 +72,23 @@ export default {
                     note:'redirect_uri，在企业微信客户端中打开'
                 },
                 {
-                    title: '网页授权连接',
-                    value: globalData.login_url
+                    title: '网页授权链接',
+                    value: globalData.login_url_base,
+                    note:'静默授权，scope=snsapi_base'
                 },
+                {
+                    title: '网页授权链接',
+                    value: globalData.login_url_private,
+                    note:'手动授权，scope=snsapi_privateinfo，agent_id 必填'
+                },
+
             ]
         },
-        eventLogin() {
-            location.href = this.globalData.login_url
+        eventLoginBase() {
+            location.href = this.globalData.login_url_base
+        },
+        eventLoginPrivate(){
+            location.href = this.globalData.login_url_private
         },
         eventQrLogin() {
             this.visible = !this.visible

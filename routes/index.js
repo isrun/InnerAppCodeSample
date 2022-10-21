@@ -11,10 +11,32 @@ if (typeof localStorage === "undefined" || localStorage === null) {
     localStorage = new LocalStorage('./scratch');
 }
 
-function getLoginURL() {
+function getLoginURL(type) {
+    if(!type) type = base;
     const corp_id = Config.corp_id;
+    if(!corp_id){
+        return "请在 configs/main.config.js 中填写 corp_id 信息"
+    }
+    if(!Config.agent_id){
+        return "请在 configs/main.config.js 中填写 agent_id 信息"
+    }
+    if(!Config.site_base){
+        return "请在 configs/main.config.js 中填写 site_base 信息"
+    }
+    if(!Config.app_path){
+        return "请在 configs/main.config.js 中填写 app_path 信息"
+    }
     const redirect_uri = encodeURI(Config.site_base + Config.app_path);
-    const login_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${corp_id}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`
+    const agent_id = Config.agent_id
+    let  login_url ;
+    if(type == 'base'){
+        login_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${corp_id}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=STATE&agentid=${agent_id}#wechat_redirect`;
+    }
+    else {
+        login_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${corp_id}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_privateinfo&state=STATE&agentid=${agent_id}#wechat_redirect`;
+    }
+    
+    
     return login_url
 }
 
@@ -23,7 +45,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get(Config.home_path, function (req, res, next) {
-    const login_url = getLoginURL;
+    const login_url = getLoginURL('base');
     res.redirect(login_url);
 });
 
@@ -44,27 +66,30 @@ router.get(Config.app_path, async function (req, res, next) {
         }
     }
 
-    let access_token = localStorage.getItem('access_token')
-    let expire_time = localStorage.getItem('expire_time')
+    let access_token 
+    let expire_time
+    try{
+        access_token = await AccessToken.getToken()
+        expire_time = localStorage.getItem('expire_time') || ''
+    }catch(error){
+        console.error('Access token wat not set')
+    }
 
     let user = {};
     if (req.session.user) {
         user = req.session.user
     }
 
-    const corp_id = Config.corp_id;
-    const agent_id = Config.agent_id;
     const redirect_uri = encodeURI(Config.site_base + Config.app_path);
-
-    const login_url = getLoginURL();
 
     let setting = {
         user: user,
         config: Config,
         access_token,
-        expire_time: dayjs.unix(expire_time).format('YYYY/MM/DD HH:mm:ss'),
+        expire_time: expire_time ?  dayjs.unix(expire_time).format('YYYY/MM/DD HH:mm:ss') : '',
         redirect_uri,
-        login_url
+        login_url_base:getLoginURL('base'),
+        login_url_private:getLoginURL('private')
     };
     res.render('../vue/dist/index.ejs', { global_data_string: JSON.stringify(setting) });
 

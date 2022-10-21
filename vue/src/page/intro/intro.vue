@@ -45,17 +45,17 @@ export default {
             this.cells = [
                 {
                    title:'CorpID',
-                    value:globalData.config.corp_id,
+                    value:globalData.config.corp_id || '请在 main.config.js 中填写 corp_id',
                     note:'企业ID'
                 },
                 {
                    title:'AgentID',
-                    value:globalData.config.agent_id,
+                    value:globalData.config.agent_id  || '请在 main.config.js 中填写 agent_id',
                     note:'应用ID'
                 },
                 {
                    title:'AppSecret',
-                    value:globalData.config.app_secret,
+                    value:globalData.config.app_secret || '请在 main.config.js 中填写 app_secret',
                     note:'应用secret'                    
                 },
                 {

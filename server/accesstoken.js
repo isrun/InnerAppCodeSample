@@ -30,8 +30,16 @@ let _getAccessToken = async function(){
     }
 
     console.log('准备读取 access_token')
-    let access_token = localStorage.getItem('access_token') || ''
-    let expire_time = localStorage.getItem('expire_time') || ''
+    let access_token 
+    let expire_time
+    
+    try{
+        access_token = localStorage.getItem('access_token') || ''
+        expire_time = localStorage.getItem('expire_time') || ''
+    }catch(error){
+        console.error('Access token wat not set')
+    }
+    
 
     if(!access_token || _isExpire(expire_time)){
         // 如果缓存中没有 token，或者 token 过期        
