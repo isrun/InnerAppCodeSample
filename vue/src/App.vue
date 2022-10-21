@@ -39,7 +39,7 @@
                                 <t-icon slot="icon" name="image" />素材管理
                             </t-menu-item>
                             <t-menu-item value="robot">
-                                <t-icon slot="icon" name="app" />机器人
+                                <t-icon slot="icon" name="logo-android" />机器人
                             </t-menu-item>
                         </t-menu>
                     </t-aside>
