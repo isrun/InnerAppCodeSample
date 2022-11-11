@@ -9,7 +9,7 @@ module.exports = function(router) {
         console.log(req.files);
         
         let {type} = req.body || {} ;
-        const access_token = await AccessToken.getAppToken();
+        const access_token = await AccessToken.getToken();
     
         // 组件一个form，用来上传文件
         const form = new FormData();

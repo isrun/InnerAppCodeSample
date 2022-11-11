@@ -14,10 +14,17 @@
     <div id="app"></div>
     <script src="http://wwcdn.weixin.qq.com/node/wework/wwopen/js/wwLogin-1.2.4.js"></script>
     <script>
+
+      try {
+          window.globalData = JSON.parse('<?- global_data_string ?>');
+      } catch (error) {
+        
+      }
       window.getQRCode = function(config){
             new WwLogin(config);
       };
     </script>
+    
     <!-- built files will be auto injected -->
   </body>
 </html>

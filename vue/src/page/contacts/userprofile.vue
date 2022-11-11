@@ -1,11 +1,7 @@
 <template>
 <div class="profile">
             <div class="profile-banner">
-                <div class="profile-title">成员详情</div>                 
-                <div class="">
-                    <el-link style="margin-right:10px;" type="primary" size="mini" @click="onEdit">编辑</el-link>
-                    <el-link type="danger" size="mini" @click="onDelete">删除</el-link>
-                </div>
+                <div class="profile-title">成员详情</div>                                 
             </div>
             <div class="profile-content">
                 <div class="profile-header">                 
@@ -79,41 +75,8 @@ export default {
                 }
             })
             return profile;
-        },
-        onEdit() {
-            console.log('edit');
-        },
-        async onDelete()  {
-            try {
-                await this.$confirm('确认是否删除该成员？', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                })
-                try {
-                const  {data: { errcode }} = await get('api/user/delete', {
-                    params:{
-                        userid: this.userid
-                    }
-                });
-                if(errcode) {
-                    throw new Error('' + errcode);
-                }
-                this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                });
-                setTimeout(() => window.location.reload(), 1000);
-                } catch(err) {
-                    this.$message({
-                        type: 'error',
-                        message: '' + err
-                    });
-                }
-            } catch(err) {
-                console.log(err);
-            } 
         }
+        
     },
     watch:{
         async userid(newvalue){

@@ -1,5 +1,8 @@
 <template>
-    <div class="contacts block">
+    <div class="block">
+        <h2 style="margin:0 0 1em 0">通讯录</h2>
+        <div class="contacts ">
+        
         <div class="tree">
         <ContactsTree 
         @onContactSelected="eventNodeClick"
@@ -13,27 +16,25 @@
             </Userprofile>
             <Partyinfo v-if="partyid" :partyid="partyid">
                 <div class="content_desc"><el-icon class="party-icon el-icon-folder"></el-icon>{{partyName}}</div>
-            </Partyinfo>
-            <template v-if="!(userid||partyid)">
-                <div  class="content_desc default"><el-icon class="party-icon el-icon-folder"></el-icon>通讯录管理</div>
-                <CreateUserAndDepart></CreateUserAndDepart>
-            </template>
+            </Partyinfo>            
          </div>
     </div>
+    </div>
+    
 </template>
 <script>
 import {get} from 'axios';
 import ContactsTree from '../../components/contactsTree.vue';
 import Userprofile from './userprofile.vue';
 import Partyinfo from './partyinfo.vue';
-import CreateUserAndDepart from './createUserAndDepart.vue';
+
 export default {
     name: 'contextManage',
     components: {
         ContactsTree,
         Userprofile,
         Partyinfo,
-        CreateUserAndDepart
+
     },
     data() {
         return {

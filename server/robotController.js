@@ -1,6 +1,6 @@
 const FormData = require('form-data');
 const axios = require('axios');
-const Config = require('../configs/main.config');
+const Config = require('../configs/main.config.js');
 
 // 简单地从 URL 中获取 get 参数的方法
 function getQueryVariable(url) {

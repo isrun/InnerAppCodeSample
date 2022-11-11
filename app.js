@@ -14,9 +14,13 @@ var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('view options',{
+  delimiter: "?"
+})
 
-app.use(express.static(path.join(__dirname, 'vue/dist')));
-app.use('/static',express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/vue',express.static(path.join(__dirname, 'vue/dist')));
+
 
 app.use(session({
   secret: 'WecomDeveloperCenterIsSoCool',

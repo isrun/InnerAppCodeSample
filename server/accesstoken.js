@@ -1,85 +1,84 @@
 const axios = require('axios');
-const Config = require('../configs/main.config');
-const fs = require('fs');
-const path = require('path');
+const Config = require('../configs/main.config.js');
 
-// token 缓存文件存储位置
-const token_path = '../temp/tokens.json';
 
-// 判断 token 是否过期
-let _isExpire = function (create_time, expire_time) {
-    const current = Math.floor(Date.now() / 1000);
-    return create_time + expire_time < current;
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage('./scratch');  
 }
 
-// 获取 token 
-let _getTokenWithType = async function (type) {
-    
-    let tokens = {};
-    let corp_id = Config.corp_id;
-    // 
-    if(!type){type = 'app'};
-    let secret = Config[`${type}_secret`];
 
-    // 先尝试从缓存中读取出token
-    try {
-        tokens = JSON.parse(fs.readFileSync(path.join(__dirname, token_path), {
-            encoding: 'utf-8',
-        }));
-    } catch (err) {
-        // 缓存文件读取失败
-        console.error(err)
+
+// 判断 token 是否过期
+let _isExpire = function (expire_time) {
+    let isExpire = true
+    const current = Math.floor(Date.now() / 1000);
+    isExpire = expire_time < current ? true : false
+    console.log('access token 未过有效期')
+    return isExpire;
+}
+
+
+
+let _getAccessToken = async function(){
+    const corp_id = Config.corp_id;
+    const corpsecret = Config.app_secret;
+
+    if(!corp_id || !corpsecret) {
+        console.error("请在 configs/main.config.js 中填写 corp_id 和 corp_secret 信息")
+        return;
+    }
+
+    console.log('准备读取 access_token')
+    let access_token 
+    let expire_time
+    
+    try{
+        access_token = localStorage.getItem('access_token') || ''
+        expire_time = localStorage.getItem('expire_time') || ''
+    }catch(error){
+        console.error('Access token wat not set')
     }
     
-    if (!tokens[type]|| _isExpire(tokens[type].create_time, tokens[type].expire_time)) {
+
+    if(!access_token || _isExpire(expire_time)){
         // 如果缓存中没有 token，或者 token 过期        
-        console.log(`重新获取 ${type} access_token`)
+        console.log(`获取 access_token`)
         // 发起请求，获取 access_token
         let access_response = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
             params: {
                 corpid:corp_id,
-                corpsecret:secret
+                corpsecret:corpsecret
             }
-        });       
-
+        });    
         let { data: {
             access_token, expires_in
         } } = access_response;
         
         if(access_token){
-            // 重新写入 access_token
-            tokens[type] = {};
-            tokens[type].create_time = Math.floor(Date.now() / 1000);
-            tokens[type].expire_time = expires_in;
-            tokens[type].token = access_token;
-            fs.writeFileSync(path.join(__dirname, token_path), JSON.stringify(tokens), {
-                encoding: 'utf-8'
-            });
+            // 重新写入 access_token            
+            localStorage.setItem('access_token',access_token);
+            localStorage.setItem('expire_time',Math.floor(Date.now() / 1000) + expires_in)
             // 返回 access_token
-            console.log(`获取 ${type} access_token 成功`,access_token);        
+            console.log(`获取 access_token 成功`,access_token);        
             return access_token;
         }
         else{
-            console.log(`获取 ${type} access_token 失败`);
+            console.log(`获取 access_token 失败`);
             console.log(access_response);
             return false;
         }
-        
-    } else {
-        // 从缓存中读取
-        console.log(`从缓存中读取 ${type} access_token`, tokens[type].token);
-        return tokens[type].token;
     }
-}
-
-module.exports ={
-    // 获取普通应用的 Token
-    async getAppToken(){
-        return await _getTokenWithType('app');
-    },
-    // 获取通讯录的 Token
-    async getContactToken(){
-        return await _getTokenWithType('contact');
+    else {
+        console.log(`从缓存中获取 access token `);
+        console.log(access_token);
+        return access_token
     }
     
+}
+
+module.exports ={    
+    async getToken(){
+        return await _getAccessToken();
+    }
 } ;

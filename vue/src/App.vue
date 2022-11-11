@@ -1,191 +1,197 @@
 <template>
-  <div class="app">
-    <el-container class="wrap">
-      <el-header class="header">
-          <h1 class="logo"><img src="./assets/logo.svg" /><span class="title">自建应用代码示例</span></h1>          
-          <div class="header-right">
-            <div class="header-links"></div>
-            <div class="header-profile">
-              <template v-if="user.userid">
-              <img class="header-profile-avatar" :src="user.avatar" /><label class="header-profile-name">{{user.name}}</label>
-              </template>
-            </div>
-          </div>
-      </el-header>
-      <el-container>                
-        <template v-if="user.userid">
-        <el-aside width="200px">            
-            <el-menu
-              class="left-menu"
-              :router="true"
-              default-active="intro"
-              >
-              <el-menu-item index="intro">
-                <i class="el-icon-monitor"></i>
-                <span slot="title">概览</span>
-              </el-menu-item>
-              <el-menu-item index="contacts">
-                <i class="el-icon-user"></i>
-                <span slot="title">通讯录管理</span>
-              </el-menu-item>
-              <el-menu-item index="message">
-                <i class="el-icon-message"></i>
-                <span slot="title">消息推送</span>
-              </el-menu-item>                 
-              <el-menu-item index="media">
-                <i class="el-icon-picture-outline"></i>
-                <span slot="title">素材管理</span>
-              </el-menu-item>
-              <el-menu-item index="robot">
-                <i class="el-icon-picture-outline"></i>
-                <span slot="title">机器人</span>
-              </el-menu-item>
-              
-            </el-menu>
-        </el-aside>
-        <el-main style="padding:0;">
-          <keep-alive><router-view name="title"></router-view></keep-alive>
-          <div class="content-body">
-            <router-view ></router-view>
-          </div>
-          
-        </el-main>
-        </template>
-        <template v-else>
-            <div class="qr_login" id="qr_login"></div>
-        </template>
-        
-      </el-container>
-    </el-container>
-    
-    
-  </div>
+    <div class="app">
+        <div class="tdesign-demo-item--layout" style="height:100%">
+            <t-layout style="height:100%">
+                <t-header style="border-bottom: 1px solid #eee">
+                    <t-head-menu value="item1" height="120px">
+                        <h1 class="logo" slot="logo" style="margin-left:25px;"><img src="./assets/logo.svg" /><span
+                                class="title">自建应用代码示例</span></h1>
+                        <template #operations>
+                            <div style="padding-right:30px;">
+                                <div style="display:flex;align-items: center;" v-if="user.userid">
+                                    <img :src="user.avatar" style="width:36px;height:36px;border-radius:3px" />
+                                    <span style="margin-left:10px;">{{user.name}}</span>
+                                </div>
+                                <template v-else>
+                                    <div>暂未登录</div>
+                                </template>
+                            </div>
+                        </template>
+                    </t-head-menu>
+                </t-header>
+                <t-layout style="height:100%">
+                    <t-aside>
+                        <t-menu defaultValue="intro" theme="light" style="margin-right: 50px" height="550px"
+                            @change="eventMenuChange">
+                            <t-menu-item value="intro">
+                                <t-icon slot="icon" name="home" />基本信息
+                            </t-menu-item>
+                            <t-menu-item value="auth">
+                                <t-icon slot="icon" name="user-circle" />身份验证
+                            </t-menu-item>
+                            <t-menu-item value="contacts">
+                                <t-icon slot="icon" name="usergroup" />通讯录
+                            </t-menu-item>
+                            <t-menu-item value="message">
+                                <t-icon slot="icon" name="logo-wecom" />消息推送
+                            </t-menu-item>
+                            <t-menu-item value="media">
+                                <t-icon slot="icon" name="image" />素材管理
+                            </t-menu-item>
+                            <t-menu-item value="robot">
+                                <t-icon slot="icon" name="logo-android" />机器人
+                            </t-menu-item>
+                        </t-menu>
+                    </t-aside>
+                    <t-layout style="border-left: 1px solid #eee;background: #fff;">
+                        <t-content>
+                            <div>
+                                <router-view></router-view>
+                            </div>
+                        </t-content>
+                        <t-footer>Copyright @ 2019-{{ new Date().getFullYear() }} Tencent. All Rights Reserved
+                        </t-footer>
+                    </t-layout>
+                </t-layout>
+            </t-layout>
+        </div>
+
+    </div>
 </template>
 
 <script>
 
-import {get} from 'axios';
-
 export default {
-  data(){
+    data() {
         return {
-            user:{}
+            user: window.globalData?.user || {}
         }
     },
-    async mounted(){
-        const {data} = await get('api/user/i');        
-        window.settings = data;
-        this.user = window.settings.user
+    methods: {
+        eventMenuChange(hash) {
+            if (`#/` + hash != location.hash) {
+                this.$router.push(`/${hash}`)
+            }
 
-        window.getQRCode({
-            "id": "qr_login",
-            "appid": window.settings.config.corp_id,
-            "agentid": window.settings.config.agent_id,
-            "redirect_uri": encodeURI('http://myapp.com:3000/app'),
-            "state": "hellowecom",
-            "href": "",
-            "lang": "zh",
-        });        
-        
+        }
     }
 }
 </script>
 
 <style>
-*{
-  margin:0;
-  padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
-html,body{
-  height: 100%;
-  background: #fff;
-  font-family:  -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+html,
+body {
+    height: 100%;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .app {
-  
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100%;;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    ;
 }
-.wrap{
-  height: 100%;
+
+.wrap {
+    height: 100%;
 }
-.header{
+
+.header {
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
     border-bottom: 1px solid #e7e7e7;
     align-items: center;
     box-sizing: content-box;
     background: #fff;
 }
-.navigation{
-    border:0 none  !important;
-    
-    
+
+.navigation {
+    border: 0 none !important;
+
+
 }
-.logo{
+
+.logo {
     display: flex;
     align-items: center;
     font-weight: 600;
 }
-.logo img{
+
+.logo img {
     width: 32px;
 }
-.logo .title{
-    font-family:Avenir;
-    color:#333;
+
+.logo .title {
+    font-family: Avenir;
+    color: #333;
     font-weight: 500;
     font-size: 20px;
     /* color:rgba(0,0,255,0.4); */
     letter-spacing: -0.5px;
     padding-left: 5px;
 }
-.header-right{
 
-}
-.header-profile{
-  display: flex;
-  align-items: center;
-}
-.header-profile-avatar{
-  width:36px;
-  height: 36px;
-  margin-right: 10px;
-  overflow: hidden;
-  border-radius: 3px;
-}
-.qr_login{
-  margin:80px auto;
+.header-right {}
+
+.header-profile {
+    display: flex;
+    align-items: center;
 }
 
-.left-menu{
-  min-height: 100%;
+.header-profile-avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+    overflow: hidden;
+    border-radius: 3px;
 }
-.content-body{  
-  min-height: 680px;
+
+.qr_login {
+    margin: 80px auto;
 }
-.block{
-    padding:20px;
-    /* border:1px solid rgb(220,220,220); */
-    background:#fff;
+
+.left-menu {
+    min-height: 100%;
+}
+
+.content-body {
+    min-height: 680px;
+}
+
+.block {
+    padding: 40px;
+    border-radius: 10px;
+    background: #fff;
     min-height: 680px;
     overflow: auto;
 }
-.block-header{
+
+.block-header {
     font-size: 16px;
     line-height: 26px;
     margin-bottom: 20px;
 }
-.el-main{
-  background: #fff;
+
+.el-main {
+    background: #fff;
 }
-.el-tree-node{
-  margin:3px 0;
+
+.el-tree-node {
+    margin: 3px 0;
 }
-.el-tree-node__content{
-  height:28px;
+
+.el-tree-node__content {
+    height: 28px;
 }
-.el-textarea__inner{
-  font-family: Arial, Helvetica, sans-serif;
+
+.el-textarea__inner {
+    font-family: Arial, Helvetica, sans-serif;
 }
 </style>
