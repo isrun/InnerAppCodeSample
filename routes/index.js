@@ -35,8 +35,6 @@ function getLoginURL(type) {
     else {
         login_url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${corp_id}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_privateinfo&state=STATE&agentid=${agent_id}#wechat_redirect`;
     }
-    
-    
     return login_url
 }
 
