@@ -144,8 +144,6 @@ npm run start
 
 > `main.config.js` 中的 `app_path` ，代表授权后跳转 URL，会根据登录的状态展示信息，不强制登录
 
-<img src="https://wdoc-76491.picgzc.qpic.cn/MTY4ODg1MTQxODI4MzY5Mw_698866_x47taYSlisc1nse3_1654139131?w=1280&h=958.8405797101449" width="640" />
-
 #### 在企业微信工作台中访问
 
 > `main.config.js` 中的 `home_path` ，代表企业主页 URL，会自动跳转到 Oauth 授权的链接，并且重定向到 `app_path`
