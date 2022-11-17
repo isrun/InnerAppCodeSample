@@ -38,14 +38,18 @@ function getLoginURL(type) {
     return login_url
 }
 
-router.get('/', function (req, res, next) {
-    res.render('index');
-});
-
 router.get(Config.home_path, function (req, res, next) {
     const login_url = getLoginURL('base');
     res.redirect(login_url);
 });
+
+// 网站根目录直接重定向到 app_path
+if(Config.app_path != '/'){
+    router.get('/', function (req, res, next) {        
+        res.redirect(Config.app_path);
+    });
+}
+
 
 router.get(Config.app_path, async function (req, res, next) {
     let { code } = req.query;
