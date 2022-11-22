@@ -75,7 +75,7 @@
 打开命令行工具，执行以下命令，下载服务端代码。
 
 ```bash
-git clone https://github.com/WecomTeam/CodeSameples.git
+git clone https://github.com/WecomTeam/InnerAppCodeSample.git
 ```
 
 ### 二、配置项目信息
