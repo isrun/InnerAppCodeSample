@@ -1,6 +1,6 @@
 {
     "name": "internalappsample",
-    "version": "01.01.03",
+    "version": "01.01.04",
     "private": true,
     "scripts": {
         "push": "node ./bin/push.js",
