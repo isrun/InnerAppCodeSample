@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 fs.readFile(path.join(__dirname, '../package.json'), 'utf8', function (err, packagejson) {
     var dataStart = "01";
-    var dataZhongjian = "02";
+    var dataZhongjian = "01";
     var person = packagejson.toString();
     packageData = JSON.parse(person);
     //把数据读出来后,进行数据修改
